@@ -1,44 +1,39 @@
 {
-  "manifest_version": 3,
-  "name": "Smart Tab Memory",
-  "version": "1.0.0",
-  "description": "Auto-group tabs and search your browsing history with smart tab memory",
-  "permissions": [
-    "tabs",
-    "tabGroups",
-    "storage",
-    "bookmarks"
-  ],
-  "background": {
-    "service_worker": "background.js"
-  },
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "icon16.png",
-      "48": "icon48.png",
-      "128": "icon128.png"
-    }
-  },
-  "icons": {
-    "16": "icon16.png",
-    "48": "icon48.png",
-    "128": "icon128.png"
-  },
-  "commands": {
-    "_execute_action": {
-      "suggested_key": {
-        "default": "Alt+S",
-        "mac": "Alt+S"
-      },
-      "description": "Open Smart Tab Memory search"
+    "manifest_version": 3,
+    "name": "Smart Tab Memory",
+    "version": "1.0.0",
+    "description": "Auto-group tabs and search your browsing history with smart tab memory",
+    "permissions": ["tabs", "tabGroups", "storage", "bookmarks"],
+    "background": {
+        "service_worker": "background.js"
     },
-    "trigger-grouping": {
-      "suggested_key": {
-        "default": "Alt+G",
-        "mac": "Alt+G"
-      },
-      "description": "Manually trigger tab grouping"
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icon16.png",
+            "48": "icon48.png",
+            "128": "icon128.png"
+        }
+    },
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+    "commands": {
+        "_execute_action": {
+            "suggested_key": {
+                "default": "Alt+S",
+                "mac": "Alt+S"
+            },
+            "description": "Open Smart Tab Memory search"
+        },
+        "trigger-grouping": {
+            "suggested_key": {
+                "default": "Alt+G",
+                "mac": "Alt+G"
+            },
+            "description": "Manually trigger tab grouping"
+        }
     }
-  }
 }

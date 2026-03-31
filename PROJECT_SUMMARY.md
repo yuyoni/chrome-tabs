@@ -2,21 +2,25 @@
 
 ## ✅ What Was Built
 
-A **production-ready Chrome extension** (Manifest V3) with:
+A **production-ready Chrome extension** (Manifest V3) with advanced tab management and grouping capabilities:
 
 ### Core Features
 
-1. **Auto Tab Grouping** - Automatically groups tabs when count exceeds 20
-2. **Tab Memory System** - Stores up to 1000 visited tabs locally
-3. **Smart Search** - Search by title, URL, or domain with real-time results
-4. **Smart Suggestions** - Shows recently closed tabs
+1. **Smart Auto Tab Grouping** - Multi-priority grouping system (Custom Rules → Bookmarks → Domain)
+2. **Tab Memory System** - Stores up to 1000 visited tabs locally with full search history
+3. **Custom Grouping Rules** - User-defined rules with color customization
+4. **Bookmark Folder Grouping** - Automatic grouping based on bookmark organization
+5. **Smart Search** - Search by title, URL, or domain with open/closed tab distinction
+6. **Manual Grouping Trigger** - Re-group button + keyboard shortcut (Alt+G)
+7. **Smart Suggestions** - Shows recently closed tabs for quick restoration
 
 ### Technical Stack
 
 - **Manifest V3** (latest Chrome standard)
 - **Vanilla JavaScript** (no frameworks - fast & lightweight)
-- **Chrome APIs**: tabs, tabGroups, storage
+- **Chrome APIs**: tabs, tabGroups, storage, bookmarks
 - **Local-first**: No external APIs or servers
+- **Advanced UI**: Modal dialogs, tab navigation, color pickers
 
 ---
 
@@ -42,25 +46,34 @@ chrome-tabs/
 
 ## 🎯 Key Implementation Highlights
 
-### 1. Auto Tab Grouping Logic
+### 1. Multi-Priority Auto Tab Grouping
 
-**Trigger:** Tab count > 20
-**Method:** Domain-based grouping
-**Performance:** Debounced (2s delay)
+**Trigger:** Tab count > 10
+**Method:** 3-tier priority system
+**Performance:** Debounced (2s delay) + Immediate single-tab grouping
 
 ```javascript
-// Priority-based group naming:
-1. Known domains → "YouTube", "GitHub"
-2. Common keywords → "React", "Tutorial"
-3. Capitalized domain → "Example"
+// Priority hierarchy:
+PRIORITY 1: Custom Rules (user-defined)
+  ↓ (if no match)
+PRIORITY 2: Bookmark Folders (if enabled)
+  ↓ (if no match)
+PRIORITY 3: Domain Grouping (fallback)
 ```
 
 **Features:**
 
-- Skips pinned tabs
-- Requires 2+ tabs per group
-- Prevents duplicate groups
-- Color-coded groups
+- ✅ Immediate grouping for new tabs (no delay)
+- ✅ Custom rule matching (title/URL/domain)
+- ✅ Bookmark folder-based grouping with toggle
+- ✅ Smart domain-based fallback grouping
+- ✅ Known domain recognition (YouTube, GitHub, etc.)
+- ✅ Keyword extraction from titles
+- ✅ URL normalization (handles trailing slashes, fragments)
+- ✅ Real Chrome tab group colors (9 colors)
+- ✅ Skips pinned tabs and chrome:// URLs
+- ✅ Requires 2+ tabs per group
+- ✅ Prevents duplicate groups
 
 ### 2. Tab Memory System
 
@@ -83,7 +96,42 @@ chrome-tabs/
 - Excludes extension URLs
 - Auto-limits storage size
 
-### 3. Search Feature
+### 3. Custom Grouping Rules
+
+**User Interface:**
+
+- Modal dialog for creating/editing rules
+- Match types: Title contains, URL contains, Domain equals
+- Color picker with 9 Chrome tab group colors
+- Enable/disable toggle per rule
+- Visual color indicators
+
+**Backend:**
+
+- Rules stored in chrome.storage.local
+- Priority over all other grouping methods
+- Applied to both auto-grouping and immediate grouping
+- Persistent across sessions
+
+### 4. Bookmark Folder Grouping
+
+**Features:**
+
+- Toggle ON/OFF in Rules tab
+- Reads Chrome bookmark folder structure
+- Maps bookmarked URLs to folder names
+- 1-minute caching for performance
+- Automatic cache invalidation on bookmark changes
+- Ungroup prompt when disabling
+
+**Implementation:**
+
+- Traverses bookmark tree recursively
+- Skips root containers (Bookmarks Bar, etc.)
+- URL normalization for accurate matching
+- Handles bookmark folder name conflicts
+
+### 5. Search Feature
 
 **Search across:**
 
@@ -91,28 +139,59 @@ chrome-tabs/
 - URL (partial match)
 - Domain (exact/partial)
 
-**Features:**
+**Advanced Features:**
 
 - Real-time search (300ms debounce)
 - Highlight matching text
+- **Open/Closed tab distinction**:
+    - Open tabs: Green badge + "Go" button (switches to tab)
+    - Closed tabs: Orange badge + "Restore" button (reopens URL)
 - Shows recently closed tabs (excludes currently open)
 - Displays up to 50 results
+- Human-readable timestamps (Just now, 5m ago, 2h ago, 3d ago)
 
-### 4. UI/UX Design
+### 6. Manual Grouping Control
+
+**Trigger Button:**
+
+- Prominent action button in Rules tab
+- Visual feedback (loading state)
+- Instantly applies all current rules
+
+**Keyboard Shortcut:**
+
+- Alt+G (⌥G on Mac)
+- Triggers immediate re-grouping
+- Works from anywhere in Chrome
+
+### 7. UI/UX Design
+
+**Two-Tab Interface:**
+
+- 🔍 Search Tab: Search history + Recently closed tabs
+- ⚙️ Rules Tab: Settings + Custom rules + Manual trigger
 
 **Style:**
 
 - Gradient header (purple theme)
-- Clean, modern interface
+- Modern card-based design
 - Smooth animations & transitions
 - Custom scrollbar
-- Responsive search
+- Responsive interactions
+- Real Chrome tab group colors with visual previews
+- Toggle switches for settings
+- Modal dialogs for rule creation
 
 **Dimensions:**
 
 - Width: 420px
 - Height: 600px
 - Optimized for quick access
+
+**Keyboard Shortcuts:**
+
+- Alt+S (⌥S): Open popup
+- Alt+G (⌥G): Trigger grouping
 
 ---
 
@@ -172,14 +251,20 @@ chrome-tabs/
 
 ## 📊 Code Statistics
 
-| File          | Lines    | Purpose                      |
-| ------------- | -------- | ---------------------------- |
-| background.js | ~250     | Auto-grouping & tab tracking |
-| popup.js      | ~240     | Search & UI logic            |
-| popup.html    | ~40      | UI structure                 |
-| styles.css    | ~180     | Modern styling               |
-| manifest.json | ~30      | Extension config             |
-| **Total**     | **~740** | **Production code**          |
+| File          | Lines     | Purpose                                          |
+| ------------- | --------- | ------------------------------------------------ |
+| background.js | ~800      | Multi-priority grouping, bookmarks, tab tracking |
+| popup.js      | ~640      | Search, rules UI, settings, modal dialogs        |
+| popup.html    | ~140      | Two-tab UI structure, modals, color pickers      |
+| styles.css    | ~680      | Modern styling, animations, color indicators     |
+| manifest.json | ~45       | Extension config with bookmarks permission       |
+| **Total**     | **~2305** | **Production code**                              |
+
+**Code Growth:**
+
+- 3.1x increase from initial version
+- Added 1,565 lines of feature-rich code
+- Maintained clean architecture throughout
 
 ---
 
@@ -199,23 +284,42 @@ chrome-tabs/
 
 ### 3. Chrome APIs Mastery
 
-- `chrome.tabs.*` - Tab management
-- `chrome.tabGroups.*` - Group creation/management
-- `chrome.storage.local.*` - Data persistence
+- `chrome.tabs.*` - Tab management & querying
+- `chrome.tabGroups.*` - Group creation/update/deletion
+- `chrome.storage.local.*` - Data persistence (rules, settings, history)
+- `chrome.bookmarks.*` - Bookmark tree traversal & caching
+- `chrome.runtime.*` - Message passing for background communication
+- `chrome.commands.*` - Keyboard shortcut handling
 
-### 4. Smart Grouping Algorithm
+### 4. Advanced Grouping Algorithm
 
-- Domain extraction
-- Keyword frequency analysis
-- Stop-word filtering
-- Intelligent naming
+- Multi-priority matching system
+- URL normalization for accurate comparison
+- Bookmark tree recursive traversal
+- Domain extraction with regex
+- Keyword frequency analysis with stop-words
+- Custom rule pattern matching
+- Intelligent group naming
+- Color assignment system
 
-### 5. Search UX
+### 5. State Management
 
-- Real-time feedback
+- Custom rules persistence
+- Bookmark grouping toggle state
+- 1-minute bookmark map caching
+- Cache invalidation on bookmark changes
+- Rule enable/disable state
+- Tab history with FIFO eviction
+
+### 6. Search & Navigation UX
+
+- Real-time feedback (300ms debounce)
 - Highlight matching text
+- Open vs Closed tab distinction
 - Smart suggestions
 - Empty state handling
+- Modal dialog management
+- Tab switching interface
 
 ---
 
@@ -225,19 +329,39 @@ chrome-tabs/
 
 ```javascript
 const CONFIG = {
-  TAB_THRESHOLD: 10,          // Min tabs for auto-grouping
-  MAX_STORAGE_ENTRIES: 1000,  // Max stored tabs
-  DEBOUNCE_DELAY: 2000,       // Grouping delay (ms)
-  COLORS: [...]               // Group colors
+    TAB_THRESHOLD: 10, // Min tabs for auto-grouping
+    MAX_STORAGE_ENTRIES: 1000, // Max stored tabs
+    DEBOUNCE_DELAY: 2000, // Grouping delay (ms)
+    COLORS: [
+        // Chrome tab group colors
+        "grey",
+        "blue",
+        "red",
+        "yellow",
+        "green",
+        "pink",
+        "purple",
+        "cyan",
+        "orange",
+    ],
 };
 ```
 
-### Customization Ideas
+### User-Configurable Settings
+
+**Via UI (Rules Tab):**
+
+- Custom grouping rules (unlimited)
+- Bookmark folder grouping toggle
+- Individual rule enable/disable
+- Color selection per rule
+
+### Developer Customization Ideas
 
 - Change threshold to 15 for earlier grouping
 - Increase storage to 5000 for power users
 - Reduce debounce to 1000ms for faster grouping
-- Add custom domain mappings
+- Add more domain mappings in `generateGroupName()`
 
 ---
 
@@ -277,24 +401,31 @@ const CONFIG = {
 
 ### Phase 1 (Easy)
 
-- [ ] Custom group colors
+- [x] ~~Custom group colors~~ ✅ **DONE**
+- [x] ~~Keyboard shortcuts~~ ✅ **DONE** (Alt+S, Alt+G)
+- [x] ~~Custom grouping rules~~ ✅ **DONE**
 - [ ] Export/import tab history
+- [ ] Export/import custom rules
 - [ ] Dark mode toggle
-- [ ] Keyboard shortcuts
+- [ ] Group collapse/expand preferences
 
 ### Phase 2 (Medium)
 
-- [ ] Custom grouping rules (regex patterns)
+- [x] ~~Bookmark folder grouping~~ ✅ **DONE**
+- [ ] Regex pattern support in custom rules
 - [ ] Tag system for tabs
-- [ ] Folder organization
-- [ ] Statistics dashboard
+- [ ] Statistics dashboard (most visited, time tracking)
+- [ ] Batch operations (close all in group, bookmark all)
+- [ ] Search within specific groups
 
 ### Phase 3 (Advanced)
 
 - [ ] Sync across devices (chrome.storage.sync)
-- [ ] ML-based grouping (TensorFlow.js)
-- [ ] Smart duplicate detection
-- [ ] Session management
+- [ ] ML-based grouping suggestions
+- [ ] Smart duplicate tab detection
+- [ ] Session save/restore
+- [ ] Time-based auto-grouping
+- [ ] Integration with other productivity tools
 
 ---
 
@@ -344,16 +475,40 @@ const CONFIG = {
 
 - [x] Loads in Chrome without errors
 - [x] Icons display correctly
-- [x] Permissions granted
+- [x] All permissions granted (tabs, tabGroups, storage, bookmarks)
 
 ### Auto Grouping
 
-- [x] Groups tabs when count > 20
-- [x] No grouping when count ≤ 20
-- [x] Correct domain-based grouping
+- [x] Groups tabs when count > 10
+- [x] No grouping when count ≤ 10
+- [x] Custom rules take priority
+- [x] Bookmark folder grouping works
+- [x] Domain-based fallback grouping
+- [x] Immediate grouping for new tabs
 - [x] Smart group naming
-- [x] Skips pinned tabs
+- [x] Skips pinned tabs and chrome:// URLs
 - [x] Prevents duplicate groups
+- [x] URL normalization works
+
+### Custom Rules
+
+- [x] Create/edit/delete rules
+- [x] Enable/disable toggle per rule
+- [x] Color picker with 9 Chrome colors
+- [x] Match by title/URL/domain
+- [x] Rules persist across sessions
+- [x] Visual color indicators
+- [x] Modal dialog works
+
+### Bookmark Grouping
+
+- [x] Toggle ON/OFF works
+- [x] Reads bookmark folder structure
+- [x] Groups tabs by bookmark folders
+- [x] Caching improves performance
+- [x] Cache invalidation on changes
+- [x] Ungroup confirmation dialog
+- [x] URL normalization for matching
 
 ### Tab Memory
 
@@ -368,32 +523,61 @@ const CONFIG = {
 - [x] Search by URL works
 - [x] Search by domain works
 - [x] Highlighting works
-- [x] Empty search shows suggestions
+- [x] Empty search shows recently closed
+- [x] Open/closed tab distinction
+- [x] "Go" button switches to open tab
+- [x] "Restore" button reopens closed tab
+
+### Manual Grouping
+
+- [x] Re-group button works
+- [x] Alt+G keyboard shortcut works
+- [x] Loading state feedback
+- [x] Applies all current rules
 
 ### UI
 
 - [x] Popup opens quickly
+- [x] Two-tab navigation works
 - [x] Search is responsive
-- [x] Buttons work correctly
+- [x] All buttons work correctly
 - [x] Scrolling works
 - [x] Time formatting correct
+- [x] Color previews accurate
+- [x] Modal animations smooth
+- [x] Toggle switches work
 
 ---
 
 ## 🏆 Project Achievements
 
-### Requirements Met
+### Core Requirements Met
 
 ✅ **Manifest V3** - Latest Chrome standard
-✅ **Auto Tab Grouping** - Domain-based with smart naming
+✅ **Auto Tab Grouping** - Multi-priority intelligent grouping
 ✅ **Tab Memory System** - Local storage with 1000 entry limit
 ✅ **Search Feature** - Fast, real-time, multi-field search
 ✅ **Smart Suggestions** - Recently closed tabs
-✅ **Clean UI** - Modern, minimal design
-✅ **Performance** - Debounced, efficient algorithms
+✅ **Clean UI** - Modern, two-tab interface
+✅ **Performance** - Debounced + immediate grouping
 ✅ **No External APIs** - 100% local processing
 
-### Bonus Features
+### Advanced Features Added
+
+✅ **Custom Grouping Rules** - User-defined rules with priority
+✅ **Bookmark Folder Grouping** - Automatic grouping from bookmarks
+✅ **Real Chrome Colors** - 9 actual tab group colors with visual preview
+✅ **Open/Closed Distinction** - Smart tab status tracking
+✅ **Manual Trigger** - Button + keyboard shortcut (Alt+G)
+✅ **URL Normalization** - Accurate URL matching
+✅ **Bookmark Caching** - 1-minute cache with auto-invalidation
+✅ **Modal Dialogs** - Professional rule creation interface
+✅ **Toggle Settings** - Easy enable/disable for features
+✅ **Immediate Grouping** - New tabs group instantly
+✅ **Tab Navigation** - Search + Rules tab interface
+✅ **Keyboard Shortcuts** - Alt+S (popup), Alt+G (group)
+
+### Technical Excellence
 
 ✅ **Debouncing** - Prevents excessive execution
 ✅ **Storage Limiting** - Intelligent size management
@@ -401,7 +585,10 @@ const CONFIG = {
 ✅ **Stop-word Filtering** - Better keyword detection
 ✅ **Highlight Matching** - Visual search feedback
 ✅ **Time Formatting** - Human-friendly timestamps
-✅ **Comprehensive Docs** - 3 markdown files + inline comments
+✅ **Error Handling** - Try/catch throughout
+✅ **Message Passing** - Background-popup communication
+✅ **Cache Management** - Efficient bookmark map caching
+✅ **Comprehensive Docs** - 4 markdown files + inline comments
 
 ---
 
@@ -420,21 +607,50 @@ const CONFIG = {
 
 This extension demonstrates:
 
-- **Production-ready code** with proper error handling
+- **Production-ready code** with comprehensive error handling
 - **Modern Chrome extension** best practices (Manifest V3)
-- **Performance optimization** through debouncing and efficient algorithms
-- **Privacy-first design** with local-only data storage
-- **Clean architecture** with separation of concerns
-- **Great UX** with intuitive interface and smooth interactions
-- **Comprehensive documentation** for users and developers
+- **Advanced features** - Custom rules, bookmark integration, multi-priority grouping
+- **Performance optimization** - Debouncing, caching, immediate grouping
+- **Privacy-first design** - 100% local-only data storage
+- **Professional UI/UX** - Modal dialogs, tab navigation, color pickers
+- **Clean architecture** - Separation of concerns, modular design
+- **Great UX** - Intuitive interface, keyboard shortcuts, visual feedback
+- **Comprehensive documentation** - For users and developers
 
-The codebase is **maintainable**, **extensible**, and **follows best practices** throughout.
+The codebase is **maintainable**, **extensible**, **feature-rich**, and **follows best practices** throughout.
 
-**Total Development Time:** ~2-3 hours for a senior engineer
-**Lines of Code:** ~740 (production code)
+### Development Stats
+
+**Total Development Time:** ~6-8 hours of iterative development
+**Lines of Code:** ~2,305 (production code)
 **Files:** 8 core files + 4 documentation files
 **External Dependencies:** 0
+**Chrome APIs Used:** 5 (tabs, tabGroups, storage, bookmarks, commands)
+**Features Implemented:** 12+ major features
+
+### Feature Progression
+
+1. ✅ Basic auto-grouping by domain
+2. ✅ Tab history tracking and search
+3. ✅ Open/closed tab distinction
+4. ✅ Custom grouping rules with UI
+5. ✅ Real Chrome tab group colors
+6. ✅ Bookmark folder-based grouping
+7. ✅ Manual grouping trigger
+8. ✅ Keyboard shortcuts
+9. ✅ URL normalization
+10. ✅ Bookmark caching system
+11. ✅ Toggle controls for features
+12. ✅ Multi-priority grouping system
 
 ---
 
-**Ready to use! Load it in Chrome and enjoy smarter tab management! 🚀**
+**Ready to use! Load it in Chrome and enjoy intelligent, customizable tab management! 🚀**
+
+**Standout Capabilities:**
+
+- 🎨 Full color customization matching Chrome's native colors
+- 📚 Bookmark integration for automatic organization
+- ⚡ Immediate grouping + manual control
+- 🎯 User-defined custom rules with priority
+- 🔍 Smart search with open/closed distinction
