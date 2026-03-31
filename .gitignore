@@ -1,1 +1,19 @@
-/.sfdx
+# Build outputs
+dist/
+*.zip
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# SFDX
+.sfdx/
+
+# Note: Keep scripts/ folder and wrapper scripts (build, dev, verify)
+# These are intentionally tracked in git

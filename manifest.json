@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Smart Tab Memory",
     "version": "1.0.0",
-    "description": "Intelligent tab manager: Auto-group tabs by custom rules, bookmarks & domain. Search history, organize tabs with colors, restore closed tabs instantly.",
+    "description": "Auto-group tabs by custom rules, bookmarks & domain. Search history, organize with colors, restore closed tabs instantly.",
     "permissions": ["tabs", "tabGroups", "storage", "bookmarks"],
     "background": {
         "service_worker": "background.js"
