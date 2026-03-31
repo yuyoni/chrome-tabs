@@ -357,6 +357,106 @@ async function autoGroupTabs() {
     }
 }
 
+// Check and group a single tab immediately (no debounce)
+async function checkAndGroupSingleTab(tab) {
+    try {
+        // Skip if below threshold
+        const allTabs = await chrome.tabs.query({ currentWindow: true });
+        if (allTabs.length <= CONFIG.TAB_THRESHOLD) {
+            return;
+        }
+
+        // Skip pinned tabs and chrome:// URLs
+        if (
+            tab.pinned ||
+            !tab.url ||
+            tab.url.startsWith("chrome://") ||
+            tab.url.startsWith("chrome-extension://")
+        ) {
+            return;
+        }
+
+        // Skip if already grouped
+        if (tab.groupId !== -1) {
+            return;
+        }
+
+        // Load custom rules
+        await loadCustomRules();
+
+        // Check custom rules first
+        for (const rule of customRules) {
+            if (matchCustomRule(tab, rule)) {
+                // Find existing group with this name
+                const groups = await chrome.tabGroups.query({ windowId: tab.windowId });
+                const existingGroup = groups.find(g => g.title === rule.groupName);
+
+                if (existingGroup) {
+                    // Add to existing group
+                    await chrome.tabs.group({ tabIds: [tab.id], groupId: existingGroup.id });
+                    console.log(`Added tab to custom group: ${rule.groupName}`);
+                } else {
+                    // Create new group
+                    const groupId = await chrome.tabs.group({ tabIds: [tab.id] });
+                    await chrome.tabGroups.update(groupId, {
+                        title: rule.groupName,
+                        color: rule.color || 'blue',
+                        collapsed: false,
+                    });
+                    console.log(`Created new custom group: ${rule.groupName}`);
+                }
+                return; // Only apply first matching rule
+            }
+        }
+
+        // Check domain grouping
+        const domain = extractDomain(tab.url);
+        if (!domain) return;
+
+        // Find tabs with same domain
+        const sameDomainTabs = allTabs.filter(t =>
+            !t.pinned &&
+            t.url &&
+            !t.url.startsWith("chrome://") &&
+            !t.url.startsWith("chrome-extension://") &&
+            extractDomain(t.url) === domain
+        );
+
+        // Need at least 2 tabs (including this one) to group
+        if (sameDomainTabs.length < 2) {
+            return;
+        }
+
+        // Check if other tabs are already grouped
+        const groupedTabs = sameDomainTabs.filter(t => t.groupId !== -1);
+        if (groupedTabs.length > 0) {
+            // Add to existing domain group
+            const existingGroupId = groupedTabs[0].groupId;
+            await chrome.tabs.group({ tabIds: [tab.id], groupId: existingGroupId });
+            console.log(`Added tab to existing domain group`);
+        } else {
+            // Create new domain group if not exists
+            const groupName = generateGroupName(domain, sameDomainTabs.map(t => t.title || ''));
+            const groups = await chrome.tabGroups.query({ windowId: tab.windowId });
+            const existingGroup = groups.find(g => g.title === groupName);
+
+            if (!existingGroup) {
+                // Group all same-domain tabs together
+                const tabIds = sameDomainTabs.map(t => t.id);
+                const groupId = await chrome.tabs.group({ tabIds });
+                await chrome.tabGroups.update(groupId, {
+                    title: groupName,
+                    color: CONFIG.COLORS[Math.floor(Math.random() * CONFIG.COLORS.length)],
+                    collapsed: false,
+                });
+                console.log(`Created new domain group: ${groupName}`);
+            }
+        }
+    } catch (error) {
+        console.error('Error in checkAndGroupSingleTab:', error);
+    }
+}
+
 // Debounced grouping
 function triggerAutoGroup() {
     if (groupingTimeout) {
@@ -373,10 +473,13 @@ chrome.tabs.onCreated.addListener((tab) => {
     triggerAutoGroup();
 });
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     // Only save when page is fully loaded
     if (changeInfo.status === "complete" && tab.url) {
         saveTabVisit(tab);
+
+        // Check if this tab should be grouped immediately
+        await checkAndGroupSingleTab(tab);
     }
 
     // Trigger grouping on URL or title changes
