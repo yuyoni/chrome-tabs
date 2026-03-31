@@ -1,6 +1,7 @@
 # 🚀 Quick Reference Card
 
 ## Installation (30 seconds)
+
 1. Open `chrome://extensions/`
 2. Enable **Developer mode** (top-right)
 3. Click **Load unpacked**
@@ -10,12 +11,12 @@
 
 ## Features at a Glance
 
-| Feature | Trigger | What It Does |
-|---------|---------|--------------|
-| **Auto Grouping** | 20+ tabs | Groups tabs by domain |
-| **Tab Memory** | Visit any page | Saves to history (max 1000) |
-| **Search** | Type in popup | Find tabs by title/URL/domain |
-| **Suggestions** | Open popup | Shows recently closed tabs |
+| Feature           | Trigger        | What It Does                  |
+| ----------------- | -------------- | ----------------------------- |
+| **Auto Grouping** | 20+ tabs       | Groups tabs by domain         |
+| **Tab Memory**    | Visit any page | Saves to history (max 1000)   |
+| **Search**        | Type in popup  | Find tabs by title/URL/domain |
+| **Suggestions**   | Open popup     | Shows recently closed tabs    |
 
 ---
 
@@ -46,9 +47,10 @@ icon*.png         → Extension icons
 ## Customization Points
 
 ### background.js (Lines 2-7)
+
 ```javascript
 const CONFIG = {
-  TAB_THRESHOLD: 20,          // ← Change this
+  TAB_THRESHOLD: 10,          // ← Change this
   MAX_STORAGE_ENTRIES: 1000,  // ← Or this
   DEBOUNCE_DELAY: 2000,       // ← Or this
   COLORS: [...]               // ← Or these
@@ -56,11 +58,12 @@ const CONFIG = {
 ```
 
 ### Add Custom Domain Names (background.js, line ~70)
+
 ```javascript
 const domainNames = {
-  'youtube.com': 'YouTube',
-  'github.com': 'GitHub',
-  'yoursite.com': 'Your Custom Name',  // ← Add here
+    "youtube.com": "YouTube",
+    "github.com": "GitHub",
+    "yoursite.com": "Your Custom Name", // ← Add here
 };
 ```
 
@@ -69,6 +72,7 @@ const domainNames = {
 ## Testing Checklist
 
 ### Quick Test (2 minutes)
+
 1. ✅ Load extension in Chrome
 2. ✅ Open 25 tabs from different sites
 3. ✅ Wait 2 seconds → tabs should group
@@ -81,39 +85,47 @@ const domainNames = {
 ## Common Tasks
 
 ### Change Group Threshold
+
 📝 Edit `background.js` line 3:
+
 ```javascript
-TAB_THRESHOLD: 15,  // Now groups at 15+ tabs
+TAB_THRESHOLD: 10,  // Now groups at 15+ tabs
 ```
 
 ### Increase Storage Limit
+
 📝 Edit `background.js` line 4:
+
 ```javascript
 MAX_STORAGE_ENTRIES: 5000,  // Store 5000 tabs
 ```
 
 ### Faster Grouping
+
 📝 Edit `background.js` line 5:
+
 ```javascript
 DEBOUNCE_DELAY: 1000,  // Group after 1 second
 ```
 
 ### Add Custom Colors
+
 📝 Edit `background.js` line 6:
+
 ```javascript
-COLORS: ['grey', 'blue', 'red', 'orange', 'magenta']
+COLORS: ["grey", "blue", "red", "orange", "magenta"];
 ```
 
 ---
 
 ## Troubleshooting (30 seconds)
 
-| Problem | Solution |
-|---------|----------|
-| Extension won't load | Check all files present, valid JSON |
-| Tabs not grouping | Need 20+ tabs, wait 2s, same domain |
-| Search empty | Visit sites after installing extension |
-| Icon missing | Click 🧩 puzzle icon, pin extension |
+| Problem              | Solution                               |
+| -------------------- | -------------------------------------- |
+| Extension won't load | Check all files present, valid JSON    |
+| Tabs not grouping    | Need 20+ tabs, wait 2s, same domain    |
+| Search empty         | Visit sites after installing extension |
+| Icon missing         | Click 🧩 puzzle icon, pin extension    |
 
 ---
 
@@ -156,15 +168,16 @@ Display results with highlighting
 ## API Usage
 
 ### Chrome APIs Used
+
 ```javascript
-chrome.tabs.query()           // Get tabs
-chrome.tabs.group()           // Create group
-chrome.tabs.onCreated         // Listen for new tabs
-chrome.tabs.onUpdated         // Listen for changes
-chrome.tabs.onRemoved         // Listen for closures
-chrome.tabGroups.update()     // Set group name/color
-chrome.storage.local.get()    // Read storage
-chrome.storage.local.set()    // Write storage
+chrome.tabs.query(); // Get tabs
+chrome.tabs.group(); // Create group
+chrome.tabs.onCreated; // Listen for new tabs
+chrome.tabs.onUpdated; // Listen for changes
+chrome.tabs.onRemoved; // Listen for closures
+chrome.tabGroups.update(); // Set group name/color
+chrome.storage.local.get(); // Read storage
+chrome.storage.local.set(); // Write storage
 ```
 
 ---
@@ -172,6 +185,7 @@ chrome.storage.local.set()    // Write storage
 ## Performance Tips
 
 ### Current Optimizations
+
 ✅ Debouncing (reduces calls by 95%)
 ✅ Storage limiting (prevents bloat)
 ✅ Set-based lookups (O(1) time)
@@ -179,6 +193,7 @@ chrome.storage.local.set()    // Write storage
 ✅ Sliced rendering (max 50 results)
 
 ### Don't Do This
+
 ❌ Remove debouncing (CPU spike)
 ❌ Unlimited storage (memory leak)
 ❌ Group every tab (cluttered UI)
@@ -207,6 +222,7 @@ chrome.storage.local.set()    // Write storage
 ```
 
 **Not requested:**
+
 - ❌ `<all_urls>` (access page content)
 - ❌ `webRequest` (intercept network)
 - ❌ `cookies` (access cookies)
@@ -216,38 +232,43 @@ chrome.storage.local.set()    // Write storage
 
 ## Documentation Files
 
-| File | Use Case |
-|------|----------|
-| [INSTALL.md](INSTALL.md) | First-time installation |
-| [README.md](README.md) | Feature overview & usage |
-| [TECHNICAL_GUIDE.md](TECHNICAL_GUIDE.md) | Implementation details |
-| [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) | Project overview |
-| [QUICK_REFERENCE.md](QUICK_REFERENCE.md) | This file! |
+| File                                     | Use Case                 |
+| ---------------------------------------- | ------------------------ |
+| [INSTALL.md](INSTALL.md)                 | First-time installation  |
+| [README.md](README.md)                   | Feature overview & usage |
+| [TECHNICAL_GUIDE.md](TECHNICAL_GUIDE.md) | Implementation details   |
+| [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) | Project overview         |
+| [QUICK_REFERENCE.md](QUICK_REFERENCE.md) | This file!               |
 
 ---
 
 ## Useful Commands
 
 ### Reload Extension
+
 1. Go to `chrome://extensions/`
 2. Click refresh icon (🔄) on extension card
 
 ### View Console Logs
+
 1. Go to `chrome://extensions/`
 2. Click "service worker" link
 3. Opens DevTools for background.js
 
 ### Inspect Popup
+
 1. Right-click extension icon
 2. Select "Inspect popup"
 3. Opens DevTools for popup.html
 
 ### Check Storage
+
 1. Open DevTools on popup
 2. Application tab → Storage → Extension
 3. View chrome.storage.local data
 
 ### Clear Storage (Manual)
+
 ```javascript
 // In extension console:
 chrome.storage.local.clear();
@@ -258,24 +279,27 @@ chrome.storage.local.clear();
 ## Code Snippets
 
 ### Get All Stored Tabs
+
 ```javascript
-chrome.storage.local.get('tabHistory', (result) => {
-  console.log(result.tabHistory);
+chrome.storage.local.get("tabHistory", (result) => {
+    console.log(result.tabHistory);
 });
 ```
 
 ### Manually Trigger Grouping
+
 ```javascript
 // In background.js console:
 autoGroupTabs();
 ```
 
 ### Export Tab History
+
 ```javascript
-chrome.storage.local.get('tabHistory', (result) => {
-  const json = JSON.stringify(result.tabHistory, null, 2);
-  console.log(json);
-  // Copy from console
+chrome.storage.local.get("tabHistory", (result) => {
+    const json = JSON.stringify(result.tabHistory, null, 2);
+    console.log(json);
+    // Copy from console
 });
 ```
 
@@ -284,6 +308,7 @@ chrome.storage.local.get('tabHistory', (result) => {
 ## Keyboard Shortcuts (Future Enhancement)
 
 Add to manifest.json:
+
 ```json
 "commands": {
   "_execute_action": {
@@ -299,9 +324,9 @@ Add to manifest.json:
 
 ## Version History
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0.0 | 2026-03-30 | Initial release |
+| Version | Date       | Changes         |
+| ------- | ---------- | --------------- |
+| 1.0.0   | 2026-03-30 | Initial release |
 
 ---
 

@@ -13,7 +13,15 @@
       <p class="subtitle">Search your browsing history</p>
     </header>
 
-    <div class="search-section">
+    <!-- Tab Navigation -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="search">🔍 Search</button>
+      <button class="tab-btn" data-tab="rules">⚙️ Rules</button>
+    </nav>
+
+    <!-- Search Tab Content -->
+    <div class="tab-content active" id="searchTab">
+      <div class="search-section">
       <input
         type="text"
         id="searchInput"
@@ -26,18 +34,92 @@
       </div>
     </div>
 
-    <div class="tabs-section">
-      <div id="suggestionsSection" class="suggestions">
-        <h3>💡 Recently Closed</h3>
-        <div id="suggestionsList"></div>
+      <div class="tabs-section">
+        <div id="suggestionsSection" class="suggestions">
+          <h3>💡 Recently Closed</h3>
+          <div id="suggestionsList"></div>
+        </div>
+
+        <div id="resultsSection" class="results">
+          <div id="resultsList"></div>
+        </div>
+
+        <div id="emptyState" class="empty-state">
+          <p>No tabs found. Start browsing to build your tab memory! 🚀</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rules Tab Content -->
+    <div class="tab-content" id="rulesTab">
+      <div class="rules-container">
+        <h2>📋 Custom Grouping Rules</h2>
+        <p class="rules-subtitle">Create rules to automatically group tabs. Custom rules take priority over domain grouping.</p>
+
+        <div id="rulesList"></div>
+
+        <button id="addRuleBtn" class="btn-primary">+ Add New Rule</button>
       </div>
 
-      <div id="resultsSection" class="results">
-        <div id="resultsList"></div>
-      </div>
+      <!-- Add/Edit Rule Modal -->
+      <div id="ruleModal" class="modal hidden">
+        <div class="modal-content">
+          <h3 id="modalTitle">➕ New Grouping Rule</h3>
 
-      <div id="emptyState" class="empty-state">
-        <p>No tabs found. Start browsing to build your tab memory! 🚀</p>
+          <div class="form-group">
+            <label>Group Name:</label>
+            <input type="text" id="ruleGroupName" placeholder="e.g., React Study" maxlength="30">
+          </div>
+
+          <div class="form-group">
+            <label>Match Condition:</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="matchType" value="title" checked>
+                Title contains
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="matchType" value="url">
+                URL contains
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="matchType" value="domain">
+                Domain equals
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Keyword:</label>
+            <input type="text" id="ruleKeyword" placeholder="e.g., react">
+          </div>
+
+          <div class="form-group">
+            <label>Color:</label>
+            <div class="color-picker">
+              <button class="color-btn" data-color="grey">⚪</button>
+              <button class="color-btn" data-color="blue">🔵</button>
+              <button class="color-btn" data-color="red">🔴</button>
+              <button class="color-btn" data-color="yellow">🟡</button>
+              <button class="color-btn" data-color="green">🟢</button>
+              <button class="color-btn" data-color="pink">🌸</button>
+              <button class="color-btn" data-color="purple">🟣</button>
+              <button class="color-btn" data-color="cyan">🔵</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="ruleEnabled" checked>
+              Enable this rule
+            </label>
+          </div>
+
+          <div class="modal-actions">
+            <button id="saveRuleBtn" class="btn-primary">Save</button>
+            <button id="cancelRuleBtn" class="btn-secondary">Cancel</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
