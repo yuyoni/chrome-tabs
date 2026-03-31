@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Smart Tab Memory",
+    "name": "Smart Tab Manager",
     "version": "1.0.0",
     "description": "Auto-group tabs by custom rules, bookmarks & domain. Search history, organize with colors, restore closed tabs instantly.",
     "permissions": ["tabs", "tabGroups", "storage", "bookmarks"],
@@ -26,7 +26,7 @@
                 "default": "Alt+S",
                 "mac": "Alt+S"
             },
-            "description": "Open Smart Tab Memory search"
+            "description": "Open Smart Tab Manager search"
         },
         "trigger-grouping": {
             "suggested_key": {

@@ -1,4 +1,4 @@
-# Smart Tab Memory - Chrome Web Store Description
+# Smart Tab Manager - Chrome Web Store Description
 
 **Character count: ~4,800 / 16,000**
 
@@ -12,13 +12,13 @@ Transform chaos into clarity: Intelligent tab organization that learns from your
 
 ## 📝 Detailed Description
 
-**Smart Tab Memory** is your intelligent tab management assistant that eliminates tab clutter and makes browsing history searchable. Stop wasting time hunting through dozens of open tabs or trying to remember that important page you closed yesterday.
+**Smart Tab Manager** is your intelligent tab management assistant that eliminates tab clutter and makes browsing history searchable. Stop wasting time hunting through dozens of open tabs or trying to remember that important page you closed yesterday.
 
 ### 🌟 Why You Need This Extension
 
 **Problem:** You have 30+ tabs open, can't find what you need, and Chrome is slowing down.
 
-**Solution:** Smart Tab Memory automatically organizes your tabs into color-coded groups and remembers everything you visit for instant recall.
+**Solution:** Smart Tab Manager automatically organizes your tabs into color-coded groups and remembers everything you visit for instant recall.
 
 **Result:** A clean, organized browser with tabs grouped by topic, project, or workflow - exactly how you think.
 
@@ -31,6 +31,7 @@ Transform chaos into clarity: Intelligent tab organization that learns from your
 Never manually organize tabs again. Our smart system groups tabs automatically using three priority levels:
 
 **Priority 1: Custom Rules** (Your Perfect Setup)
+
 - Create personalized grouping rules for your workflow
 - Match by page title, URL, or domain
 - Choose from 9 Chrome tab group colors
@@ -38,6 +39,7 @@ Never manually organize tabs again. Our smart system groups tabs automatically u
 - Perfect for students, developers, researchers, and project managers
 
 **Priority 2: Bookmark Folders** (Leverage Your Existing Organization)
+
 - Automatically groups tabs that match your bookmarked URLs
 - Uses your bookmark folder structure as grouping logic
 - Toggle ON/OFF with one click
@@ -45,6 +47,7 @@ Never manually organize tabs again. Our smart system groups tabs automatically u
 - Great for frequent visitors who already organize bookmarks
 
 **Priority 3: Domain Grouping** (Smart Fallback)
+
 - Groups tabs from the same website automatically
 - Intelligent naming: "YouTube" not "youtube.com"
 - Keyword extraction from page titles
@@ -56,17 +59,20 @@ Never manually organize tabs again. Our smart system groups tabs automatically u
 **Never lose a closed tab again.** Your complete browsing history is instantly searchable:
 
 ✅ **Smart Search Engine**
+
 - Search by title, URL, or domain
 - Real-time results as you type (300ms response)
 - Highlighted matching text
 - Shows up to 50 results
 
 ✅ **Open vs Closed Tab Detection**
+
 - Green badge + "Go" button → Switches to open tab instantly
 - Orange badge + "Restore" button → Reopens closed tab in one click
 - See when tabs were closed (Just now, 5m ago, 2h ago, 3d ago)
 
 ✅ **Recently Closed Suggestions**
+
 - Automatic recommendations when search is empty
 - Shows last 10 closed tabs
 - Filters out currently open tabs
@@ -86,12 +92,14 @@ Match Chrome's native tab group colors perfectly:
 ### 4️⃣ **Complete Control & Flexibility**
 
 **Manual Grouping Trigger**
+
 - Big "Re-group All Tabs" button in settings
 - Keyboard shortcut: Alt+G (⌥G on Mac)
 - Apply all rules instantly
 - Perfect when auto-grouping doesn't trigger
 
 **Custom Rule Manager**
+
 - Create unlimited grouping rules
 - Enable/disable individual rules
 - Edit rules anytime
@@ -99,6 +107,7 @@ Match Chrome's native tab group colors perfectly:
 - Delete rules you no longer need
 
 **Bookmark Integration Toggle**
+
 - Turn bookmark grouping ON/OFF instantly
 - Automatic cleanup: Asks to ungroup when turning OFF
 - No performance impact when disabled
@@ -107,6 +116,7 @@ Match Chrome's native tab group colors perfectly:
 ### 5️⃣ **Privacy-First Design**
 
 🔒 **100% Local Processing**
+
 - All data stored in your browser (chrome.storage.local)
 - No external servers or cloud sync
 - No analytics or tracking
@@ -114,6 +124,7 @@ Match Chrome's native tab group colors perfectly:
 - Works completely offline
 
 🔒 **Minimal Permissions**
+
 - Only requires: tabs, tabGroups, storage, bookmarks
 - No access to browsing history API
 - No access to all websites
@@ -123,18 +134,21 @@ Match Chrome's native tab group colors perfectly:
 ### 6️⃣ **Smart Memory System**
 
 **Automatic Tab Tracking**
+
 - Stores up to 1,000 visited tabs
 - Saves: title, URL, domain, timestamp
 - Triggers on page fully loaded
 - FIFO eviction (oldest tabs removed first)
 
 **Smart Filtering**
+
 - Excludes chrome:// internal pages
 - Excludes extension URLs
 - Skips pinned tabs from grouping
 - No sensitive data stored
 
 **One-Click History Clear**
+
 - Clear all history instantly
 - Confirmation dialog prevents accidents
 - Fresh start anytime you want
@@ -144,36 +158,42 @@ Match Chrome's native tab group colors perfectly:
 ## 🎯 Perfect For...
 
 ### 📚 **Students & Researchers**
+
 - Group research papers by topic
 - Separate courses into color-coded groups
 - Find that journal article you read last week
 - Custom rules: "Group all .edu domains → 🔵 Research"
 
 ### 💻 **Developers & Engineers**
+
 - Organize documentation, GitHub, Stack Overflow
 - Separate projects by repository or technology
 - Quick access to closed API docs
 - Custom rules: "Group tabs with 'React' → 🟢 Frontend"
 
 ### 🎨 **Designers & Creatives**
+
 - Group design inspiration by project
 - Organize client work separately
 - Find that Dribbble shot from yesterday
 - Custom rules: "Group 'Figma' → 🟣 Design Tools"
 
 ### 📊 **Project Managers**
+
 - Separate projects into groups
 - Organize by client or sprint
 - Quick access to project documentation
 - Bookmark folders → Automatic client separation
 
 ### 🛍️ **Online Shoppers**
+
 - Group shopping sites by category
 - Find products you viewed earlier
 - Compare prices across tabs
 - Custom rules: "Group 'amazon' → 🟠 Shopping"
 
 ### 📰 **News & Content Consumers**
+
 - Group news sites together
 - Separate work from entertainment
 - Find articles to read later
@@ -193,18 +213,21 @@ Match Chrome's native tab group colors perfectly:
 ### Daily Usage
 
 **Automatic Mode:**
+
 - Just browse normally
 - Tabs group automatically when you hit 10+ tabs
 - New tabs join existing groups instantly
 - Zero effort required
 
 **Manual Control:**
+
 - Press Alt+S (⌥S) to open search
 - Press Alt+G (⌥G) to trigger grouping
 - Click "Re-group All Tabs" button in settings
 - Create/edit custom rules anytime
 
 **Search & Restore:**
+
 - Type in search box to find any tab
 - Click "Go" to switch to open tabs
 - Click "Restore" to reopen closed tabs
@@ -215,6 +238,7 @@ Match Chrome's native tab group colors perfectly:
 ## 💡 Smart Use Cases
 
 ### Case Study 1: Developer Workflow
+
 ```
 Custom Rules:
 - Title contains "localhost" → 🟢 Local Dev
@@ -225,6 +249,7 @@ Result: Development tabs auto-organize by context
 ```
 
 ### Case Study 2: Student Research
+
 ```
 Bookmark Folders:
 - Computer Science/
@@ -236,6 +261,7 @@ Result: Tabs group by research topic automatically
 ```
 
 ### Case Study 3: Shopping Comparison
+
 ```
 Custom Rules:
 - URL contains "amazon" → 🟠 Amazon
@@ -252,6 +278,7 @@ Result: Shopping tabs organized by store and research
 ### Two-Tab Design
 
 **🔍 Search Tab**
+
 - Clean search interface
 - Recently closed suggestions
 - Real-time filtering
@@ -259,6 +286,7 @@ Result: Shopping tabs organized by store and research
 - One-click restore
 
 **⚙️ Rules Tab**
+
 - Manual grouping trigger button
 - Bookmark grouping toggle
 - Custom rules manager
@@ -279,6 +307,7 @@ Result: Shopping tabs organized by store and research
 ## ⚡ Performance & Efficiency
 
 **Lightning Fast:**
+
 - Popup opens in <100ms
 - Search results in <300ms
 - Immediate single-tab grouping
@@ -286,6 +315,7 @@ Result: Shopping tabs organized by store and research
 - Minimal memory footprint
 
 **Smart Optimization:**
+
 - Bookmark map caching (1-minute TTL)
 - URL normalization for accuracy
 - Efficient Set-based lookups
@@ -293,6 +323,7 @@ Result: Shopping tabs organized by store and research
 - No unnecessary DOM updates
 
 **Battery Friendly:**
+
 - Service worker architecture (Manifest V3)
 - No polling or background timers
 - Event-driven only
@@ -304,21 +335,27 @@ Result: Shopping tabs organized by store and research
 ## 🔧 Advanced Features
 
 ### URL Normalization
+
 Handles URL variations intelligently:
+
 - Trailing slashes: `example.com/` = `example.com`
 - Hash fragments ignored
 - Query parameters compared
 - Protocol normalized
 
 ### Keyword Extraction
+
 Smart group naming from page titles:
+
 - Stop-word filtering (the, a, an, etc.)
 - Frequency analysis
 - Minimum occurrence threshold
 - Fallback to domain name
 
 ### Bookmark Tree Traversal
+
 Efficient bookmark integration:
+
 - Recursive folder scanning
 - Skips root containers
 - Parent folder tracking
@@ -398,26 +435,27 @@ Transform your chaotic browser into an organized productivity machine in 30 seco
 
 ---
 
-## 🏆 Why Smart Tab Memory Stands Out
+## 🏆 Why Smart Tab Manager Stands Out
 
 ### vs. Other Tab Managers:
+
 ❌ **Others:** Manual grouping required
-✅ **Smart Tab Memory:** Fully automatic with 3-tier intelligence
+✅ **Smart Tab Manager:** Fully automatic with 3-tier intelligence
 
 ❌ **Others:** Basic domain grouping only
-✅ **Smart Tab Memory:** Custom rules + bookmarks + domain
+✅ **Smart Tab Manager:** Custom rules + bookmarks + domain
 
 ❌ **Others:** No search or history
-✅ **Smart Tab Memory:** Full-text search with 1,000 entry history
+✅ **Smart Tab Manager:** Full-text search with 1,000 entry history
 
 ❌ **Others:** Limited customization
-✅ **Smart Tab Memory:** Unlimited rules, 9 colors, flexible matching
+✅ **Smart Tab Manager:** Unlimited rules, 9 colors, flexible matching
 
 ❌ **Others:** Cloud sync with privacy concerns
-✅ **Smart Tab Memory:** 100% local, zero tracking guaranteed
+✅ **Smart Tab Manager:** 100% local, zero tracking guaranteed
 
 ❌ **Others:** Complex setup required
-✅ **Smart Tab Memory:** Works immediately, customize later
+✅ **Smart Tab Manager:** Works immediately, customize later
 
 ---
 
@@ -437,11 +475,10 @@ Transparent, auditable code. Review the logic yourself for peace of mind.
 
 ---
 
-**Smart Tab Memory** - Because your browser deserves better organization.
+**Smart Tab Manager** - Because your browser deserves better organization.
 
 🧠 **Install now and experience the difference!**
 
 ---
 
-*Made with care for productivity enthusiasts who value privacy and efficiency.*
-
+_Made with care for productivity enthusiasts who value privacy and efficiency._

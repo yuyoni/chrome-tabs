@@ -30,11 +30,12 @@ const CACHE_DURATION = 60000; // 1 minute
 // Load custom rules from storage
 async function loadCustomRules() {
     try {
-        const { groupingRules = [] } = await chrome.storage.local.get('groupingRules');
-        customRules = groupingRules.filter(rule => rule.enabled);
+        const { groupingRules = [] } =
+            await chrome.storage.local.get("groupingRules");
+        customRules = groupingRules.filter((rule) => rule.enabled);
         return customRules;
     } catch (error) {
-        console.error('Error loading custom rules:', error);
+        console.error("Error loading custom rules:", error);
         return [];
     }
 }
@@ -49,10 +50,11 @@ async function buildBookmarkFolderMap() {
         function traverse(nodes, parentTitle, isRootLevel = false) {
             for (const node of nodes) {
                 // Skip root-level containers but process their children
-                const isRootContainer = node.title === 'Bookmarks Bar' ||
-                                       node.title === 'Other Bookmarks' ||
-                                       node.title === 'Mobile Bookmarks' ||
-                                       !node.title;
+                const isRootContainer =
+                    node.title === "Bookmarks Bar" ||
+                    node.title === "Other Bookmarks" ||
+                    node.title === "Mobile Bookmarks" ||
+                    !node.title;
 
                 if (isRootLevel && isRootContainer) {
                     if (node.children) {
@@ -68,7 +70,9 @@ async function buildBookmarkFolderMap() {
                     // This is a bookmark with a valid parent folder
                     const normalizedUrl = normalizeUrl(node.url);
                     urlToFolder.set(normalizedUrl, parentTitle);
-                    console.log(`Bookmark mapped: ${normalizedUrl} → ${parentTitle}`);
+                    console.log(
+                        `Bookmark mapped: ${normalizedUrl} → ${parentTitle}`,
+                    );
                 }
             }
         }
@@ -77,7 +81,7 @@ async function buildBookmarkFolderMap() {
         console.log(`Built bookmark map with ${urlToFolder.size} entries`);
         return urlToFolder;
     } catch (error) {
-        console.error('Error building bookmark folder map:', error);
+        console.error("Error building bookmark folder map:", error);
         return new Map();
     }
 }
@@ -87,7 +91,7 @@ async function getBookmarkMap() {
     const now = Date.now();
 
     // Return cached map if valid
-    if (bookmarkMapCache && (now - bookmarkCacheTime) < CACHE_DURATION) {
+    if (bookmarkMapCache && now - bookmarkCacheTime < CACHE_DURATION) {
         return bookmarkMapCache;
     }
 
@@ -111,11 +115,11 @@ function matchCustomRule(tab, rule) {
     const searchValue = keyword.toLowerCase();
 
     switch (matchType) {
-        case 'title':
+        case "title":
             return tab.title && tab.title.toLowerCase().includes(searchValue);
-        case 'url':
+        case "url":
             return tab.url && tab.url.toLowerCase().includes(searchValue);
-        case 'domain':
+        case "domain":
             const domain = extractDomain(tab.url);
             return domain === searchValue;
         default:
@@ -172,7 +176,7 @@ function normalizeUrl(url) {
         const urlObj = new URL(url);
         // Remove trailing slash, hash, and normalize
         let normalized = urlObj.origin + urlObj.pathname;
-        if (normalized.endsWith('/')) {
+        if (normalized.endsWith("/")) {
             normalized = normalized.slice(0, -1);
         }
         // Add search params if they exist
@@ -300,8 +304,12 @@ async function autoGroupTabs() {
 
         // Load custom rules and settings
         await loadCustomRules();
-        const { useBookmarkGrouping = false } = await chrome.storage.local.get('useBookmarkGrouping');
-        console.log(`Auto-grouping: useBookmarkGrouping = ${useBookmarkGrouping}`);
+        const { useBookmarkGrouping = false } = await chrome.storage.local.get(
+            "useBookmarkGrouping",
+        );
+        console.log(
+            `Auto-grouping: useBookmarkGrouping = ${useBookmarkGrouping}`,
+        );
 
         // Load bookmark map if enabled
         let bookmarkMap = new Map();
@@ -333,7 +341,7 @@ async function autoGroupTabs() {
                     if (!customGroups[groupKey]) {
                         customGroups[groupKey] = {
                             tabs: [],
-                            rule: rule
+                            rule: rule,
                         };
                     }
                     customGroups[groupKey].tabs.push(tab);
@@ -356,7 +364,9 @@ async function autoGroupTabs() {
                 const normalizedTabUrl = normalizeUrl(tab.url);
                 const folderName = bookmarkMap.get(normalizedTabUrl);
                 if (folderName) {
-                    console.log(`Tab matched bookmark folder: ${normalizedTabUrl} → ${folderName}`);
+                    console.log(
+                        `Tab matched bookmark folder: ${normalizedTabUrl} → ${folderName}`,
+                    );
                     if (!bookmarkGroups[folderName]) {
                         bookmarkGroups[folderName] = [];
                     }
@@ -367,7 +377,10 @@ async function autoGroupTabs() {
             remainingAfterBookmark.push(tab);
         }
 
-        console.log(`Bookmark groups found: ${Object.keys(bookmarkGroups).length}`, Object.keys(bookmarkGroups));
+        console.log(
+            `Bookmark groups found: ${Object.keys(bookmarkGroups).length}`,
+            Object.keys(bookmarkGroups),
+        );
 
         // PRIORITY 3: Group remaining tabs by domain
         const domainGroups = {};
@@ -421,7 +434,9 @@ async function autoGroupTabs() {
                 const groupId = await chrome.tabs.group({ tabIds });
                 await chrome.tabGroups.update(groupId, {
                     title: groupName,
-                    color: groupData.rule.color || CONFIG.COLORS[colorIndex % CONFIG.COLORS.length],
+                    color:
+                        groupData.rule.color ||
+                        CONFIG.COLORS[colorIndex % CONFIG.COLORS.length],
                     collapsed: false,
                 });
                 colorIndex++;
@@ -432,7 +447,9 @@ async function autoGroupTabs() {
         }
 
         // STEP 2: Create bookmark folder groups
-        for (const [folderName, bookmarkTabs] of Object.entries(bookmarkGroups)) {
+        for (const [folderName, bookmarkTabs] of Object.entries(
+            bookmarkGroups,
+        )) {
             if (bookmarkTabs.length < 2) {
                 continue;
             }
@@ -540,25 +557,36 @@ async function checkAndGroupSingleTab(tab) {
 
         // Load custom rules and settings
         await loadCustomRules();
-        const { useBookmarkGrouping = false } = await chrome.storage.local.get('useBookmarkGrouping');
+        const { useBookmarkGrouping = false } = await chrome.storage.local.get(
+            "useBookmarkGrouping",
+        );
 
         // PRIORITY 1: Check custom rules first
         for (const rule of customRules) {
             if (matchCustomRule(tab, rule)) {
                 // Find existing group with this name
-                const groups = await chrome.tabGroups.query({ windowId: tab.windowId });
-                const existingGroup = groups.find(g => g.title === rule.groupName);
+                const groups = await chrome.tabGroups.query({
+                    windowId: tab.windowId,
+                });
+                const existingGroup = groups.find(
+                    (g) => g.title === rule.groupName,
+                );
 
                 if (existingGroup) {
                     // Add to existing group
-                    await chrome.tabs.group({ tabIds: [tab.id], groupId: existingGroup.id });
+                    await chrome.tabs.group({
+                        tabIds: [tab.id],
+                        groupId: existingGroup.id,
+                    });
                     console.log(`Added tab to custom group: ${rule.groupName}`);
                 } else {
                     // Create new group
-                    const groupId = await chrome.tabs.group({ tabIds: [tab.id] });
+                    const groupId = await chrome.tabs.group({
+                        tabIds: [tab.id],
+                    });
                     await chrome.tabGroups.update(groupId, {
                         title: rule.groupName,
-                        color: rule.color || 'blue',
+                        color: rule.color || "blue",
                         collapsed: false,
                     });
                     console.log(`Created new custom group: ${rule.groupName}`);
@@ -573,51 +601,78 @@ async function checkAndGroupSingleTab(tab) {
             const normalizedTabUrl = normalizeUrl(tab.url);
             console.log(`Checking bookmark for tab: ${normalizedTabUrl}`);
             const folderName = bookmarkMap.get(normalizedTabUrl);
-            console.log(`Bookmark folder found: ${folderName || 'none'}`);
+            console.log(`Bookmark folder found: ${folderName || "none"}`);
 
             if (folderName) {
                 // Find tabs with same bookmark folder
-                const sameFolderTabs = allTabs.filter(t => {
-                    if (t.pinned || !t.url ||
+                const sameFolderTabs = allTabs.filter((t) => {
+                    if (
+                        t.pinned ||
+                        !t.url ||
                         t.url.startsWith("chrome://") ||
-                        t.url.startsWith("chrome-extension://")) {
+                        t.url.startsWith("chrome-extension://")
+                    ) {
                         return false;
                     }
                     const normalizedUrl = normalizeUrl(t.url);
                     return bookmarkMap.get(normalizedUrl) === folderName;
                 });
 
-                console.log(`Found ${sameFolderTabs.length} tabs in folder "${folderName}"`);
+                console.log(
+                    `Found ${sameFolderTabs.length} tabs in folder "${folderName}"`,
+                );
 
                 // Need at least 2 tabs (including this one) to group
                 if (sameFolderTabs.length >= 2) {
                     // Check if other tabs are already grouped
-                    const groupedTabs = sameFolderTabs.filter(t => t.groupId !== -1);
+                    const groupedTabs = sameFolderTabs.filter(
+                        (t) => t.groupId !== -1,
+                    );
 
                     if (groupedTabs.length > 0) {
                         // Add to existing bookmark folder group
                         const existingGroupId = groupedTabs[0].groupId;
-                        await chrome.tabs.group({ tabIds: [tab.id], groupId: existingGroupId });
-                        console.log(`Added tab to existing bookmark folder group: ${folderName}`);
+                        await chrome.tabs.group({
+                            tabIds: [tab.id],
+                            groupId: existingGroupId,
+                        });
+                        console.log(
+                            `Added tab to existing bookmark folder group: ${folderName}`,
+                        );
                     } else {
                         // Create new bookmark folder group
-                        const groups = await chrome.tabGroups.query({ windowId: tab.windowId });
-                        const existingGroup = groups.find(g => g.title === folderName);
+                        const groups = await chrome.tabGroups.query({
+                            windowId: tab.windowId,
+                        });
+                        const existingGroup = groups.find(
+                            (g) => g.title === folderName,
+                        );
 
                         if (!existingGroup) {
                             // Group all same-folder tabs together
-                            const tabIds = sameFolderTabs.map(t => t.id);
+                            const tabIds = sameFolderTabs.map((t) => t.id);
                             const groupId = await chrome.tabs.group({ tabIds });
                             await chrome.tabGroups.update(groupId, {
                                 title: folderName,
-                                color: CONFIG.COLORS[Math.floor(Math.random() * CONFIG.COLORS.length)],
+                                color: CONFIG.COLORS[
+                                    Math.floor(
+                                        Math.random() * CONFIG.COLORS.length,
+                                    )
+                                ],
                                 collapsed: false,
                             });
-                            console.log(`Created new bookmark folder group: ${folderName}`);
+                            console.log(
+                                `Created new bookmark folder group: ${folderName}`,
+                            );
                         } else {
                             // Add to existing group
-                            await chrome.tabs.group({ tabIds: [tab.id], groupId: existingGroup.id });
-                            console.log(`Added tab to existing bookmark folder group: ${folderName}`);
+                            await chrome.tabs.group({
+                                tabIds: [tab.id],
+                                groupId: existingGroup.id,
+                            });
+                            console.log(
+                                `Added tab to existing bookmark folder group: ${folderName}`,
+                            );
                         }
                     }
                     return; // Bookmark folder matched
@@ -630,12 +685,13 @@ async function checkAndGroupSingleTab(tab) {
         if (!domain) return;
 
         // Find tabs with same domain
-        const sameDomainTabs = allTabs.filter(t =>
-            !t.pinned &&
-            t.url &&
-            !t.url.startsWith("chrome://") &&
-            !t.url.startsWith("chrome-extension://") &&
-            extractDomain(t.url) === domain
+        const sameDomainTabs = allTabs.filter(
+            (t) =>
+                !t.pinned &&
+                t.url &&
+                !t.url.startsWith("chrome://") &&
+                !t.url.startsWith("chrome-extension://") &&
+                extractDomain(t.url) === domain,
         );
 
         // Need at least 2 tabs (including this one) to group
@@ -644,32 +700,42 @@ async function checkAndGroupSingleTab(tab) {
         }
 
         // Check if other tabs are already grouped
-        const groupedTabs = sameDomainTabs.filter(t => t.groupId !== -1);
+        const groupedTabs = sameDomainTabs.filter((t) => t.groupId !== -1);
         if (groupedTabs.length > 0) {
             // Add to existing domain group
             const existingGroupId = groupedTabs[0].groupId;
-            await chrome.tabs.group({ tabIds: [tab.id], groupId: existingGroupId });
+            await chrome.tabs.group({
+                tabIds: [tab.id],
+                groupId: existingGroupId,
+            });
             console.log(`Added tab to existing domain group`);
         } else {
             // Create new domain group if not exists
-            const groupName = generateGroupName(domain, sameDomainTabs.map(t => t.title || ''));
-            const groups = await chrome.tabGroups.query({ windowId: tab.windowId });
-            const existingGroup = groups.find(g => g.title === groupName);
+            const groupName = generateGroupName(
+                domain,
+                sameDomainTabs.map((t) => t.title || ""),
+            );
+            const groups = await chrome.tabGroups.query({
+                windowId: tab.windowId,
+            });
+            const existingGroup = groups.find((g) => g.title === groupName);
 
             if (!existingGroup) {
                 // Group all same-domain tabs together
-                const tabIds = sameDomainTabs.map(t => t.id);
+                const tabIds = sameDomainTabs.map((t) => t.id);
                 const groupId = await chrome.tabs.group({ tabIds });
                 await chrome.tabGroups.update(groupId, {
                     title: groupName,
-                    color: CONFIG.COLORS[Math.floor(Math.random() * CONFIG.COLORS.length)],
+                    color: CONFIG.COLORS[
+                        Math.floor(Math.random() * CONFIG.COLORS.length)
+                    ],
                     collapsed: false,
                 });
                 console.log(`Created new domain group: ${groupName}`);
             }
         }
     } catch (error) {
-        console.error('Error in checkAndGroupSingleTab:', error);
+        console.error("Error in checkAndGroupSingleTab:", error);
     }
 }
 
@@ -681,11 +747,11 @@ async function ungroupBookmarkGroups() {
 
         // Get all bookmark folder names
         const bookmarkFolderNames = new Set(bookmarkMap.values());
-        console.log('Bookmark folder names:', Array.from(bookmarkFolderNames));
+        console.log("Bookmark folder names:", Array.from(bookmarkFolderNames));
 
         // Get all tab groups in current window
         const groups = await chrome.tabGroups.query({
-            windowId: chrome.windows.WINDOW_ID_CURRENT
+            windowId: chrome.windows.WINDOW_ID_CURRENT,
         });
 
         let ungroupedCount = 0;
@@ -697,7 +763,7 @@ async function ungroupBookmarkGroups() {
 
                 // Get all tabs in this group
                 const tabsInGroup = await chrome.tabs.query({
-                    groupId: group.id
+                    groupId: group.id,
                 });
 
                 // Ungroup each tab
@@ -712,7 +778,7 @@ async function ungroupBookmarkGroups() {
         console.log(`Ungrouped ${ungroupedCount} bookmark-based groups`);
         return ungroupedCount;
     } catch (error) {
-        console.error('Error ungrouping bookmark groups:', error);
+        console.error("Error ungrouping bookmark groups:", error);
         return 0;
     }
 }
@@ -779,13 +845,13 @@ chrome.commands.onCommand.addListener((command) => {
 
 // Message handler for re-grouping and ungrouping
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.action === 'regroupTabs') {
-        console.log('Re-grouping tabs based on updated rules');
+    if (message.action === "regroupTabs") {
+        console.log("Re-grouping tabs based on updated rules");
         autoGroupTabs();
         sendResponse({ success: true });
-    } else if (message.action === 'ungroupBookmarkGroups') {
-        console.log('Ungrouping bookmark-based groups');
-        ungroupBookmarkGroups().then(count => {
+    } else if (message.action === "ungroupBookmarkGroups") {
+        console.log("Ungrouping bookmark-based groups");
+        ungroupBookmarkGroups().then((count) => {
             sendResponse({ success: true, count: count });
         });
         return true; // Will respond asynchronously
@@ -795,7 +861,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // Initialize: save existing tabs
 chrome.runtime.onInstalled.addListener(async () => {
-    console.log("Smart Tab Memory installed");
+    console.log("Smart Tab Manager installed");
 
     // Save all current tabs
     const tabs = await chrome.tabs.query({});

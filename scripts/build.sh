@@ -5,7 +5,7 @@
 
 set -e  # Exit on error
 
-echo "🔨 Building Smart Tab Memory Extension..."
+echo "🔨 Building Smart Tab Manager Extension..."
 
 # Clean previous build
 if [ -d "dist" ]; then

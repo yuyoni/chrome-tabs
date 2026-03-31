@@ -1,4 +1,4 @@
-# 🧠 Smart Tab Memory - Project Summary
+# 🧠 Smart Tab Manager - Project Summary
 
 ## ✅ What Was Built
 

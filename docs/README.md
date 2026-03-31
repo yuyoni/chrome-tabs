@@ -1,4 +1,4 @@
-# 🧠 Smart Tab Memory
+# 🧠 Smart Tab Manager
 
 A production-ready Chrome extension that automatically groups your tabs and lets you search through your browsing history.
 

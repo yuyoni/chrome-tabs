@@ -1,4 +1,4 @@
-# ⌨️ Smart Tab Memory - 단축키 가이드
+# ⌨️ Smart Tab Manager - 단축키 가이드
 
 ## 기본 단축키
 
@@ -40,7 +40,7 @@ Chrome에서 단축키를 커스터마이즈할 수 있습니다:
 
 1. Chrome 열기
 2. 주소창에 입력: `chrome://extensions/shortcuts`
-3. "Smart Tab Memory" 찾기
+3. "Smart Tab Manager" 찾기
 4. 원하는 단축키로 변경
 
 ### 추천 대체 단축키
@@ -112,7 +112,7 @@ Chrome에서 단축키를 커스터마이즈할 수 있습니다:
 단축키를 사용하지 않으려면:
 
 1. `chrome://extensions/shortcuts` 접속
-2. "Smart Tab Memory" 찾기
+2. "Smart Tab Manager" 찾기
 3. 각 단축키 옆 "×" 클릭하여 제거
 
 ---
@@ -149,7 +149,7 @@ Chrome에서 단축키를 커스터마이즈할 수 있습니다:
 
 ```
 ┌─────────────────────────────────────┐
-│   Smart Tab Memory 단축키          │
+│   Smart Tab Manager 단축키          │
 ├─────────────────────────────────────┤
 │                                     │
 │  🔍 탭 검색 열기                   │

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🔍 Smart Tab Memory - Extension Verification"
+echo "🔍 Smart Tab Manager - Extension Verification"
 echo "=============================================="
 echo ""
 
