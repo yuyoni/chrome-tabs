@@ -296,12 +296,34 @@ async function toggleBookmarkGrouping() {
   try {
     const toggle = document.getElementById('bookmarkGroupingToggle');
     const enabled = toggle.checked;
-    await chrome.storage.local.set({ useBookmarkGrouping: enabled });
 
+    // If turning OFF, ask user if they want to ungroup bookmark-based groups
+    if (!enabled) {
+      const shouldUngroup = confirm(
+        '북마크 기반 그룹핑을 비활성화합니다.\n\n' +
+        '현재 존재하는 북마크 폴더 기반 그룹들을 모두 해제하시겠습니까?\n\n' +
+        '(확인: 그룹 해제, 취소: 그룹 유지)'
+      );
+
+      if (shouldUngroup) {
+        // Send message to background to ungroup bookmark-based groups
+        chrome.runtime.sendMessage({
+          action: 'ungroupBookmarkGroups'
+        }, (response) => {
+          if (response && response.success) {
+            console.log(`Ungrouped ${response.count} bookmark-based groups`);
+          }
+        });
+      }
+    }
+
+    await chrome.storage.local.set({ useBookmarkGrouping: enabled });
     console.log(`Bookmark grouping ${enabled ? 'enabled' : 'disabled'}`);
 
-    // Trigger re-grouping in background
-    chrome.runtime.sendMessage({ action: 'regroupTabs' });
+    // Trigger re-grouping in background (only when enabling)
+    if (enabled) {
+      chrome.runtime.sendMessage({ action: 'regroupTabs' });
+    }
   } catch (error) {
     console.error('Error toggling bookmark grouping:', error);
   }

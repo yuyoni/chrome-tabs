@@ -673,6 +673,50 @@ async function checkAndGroupSingleTab(tab) {
     }
 }
 
+// Ungroup all bookmark-based groups
+async function ungroupBookmarkGroups() {
+    try {
+        // Get bookmark map to identify which groups are bookmark-based
+        const bookmarkMap = await getBookmarkMap();
+
+        // Get all bookmark folder names
+        const bookmarkFolderNames = new Set(bookmarkMap.values());
+        console.log('Bookmark folder names:', Array.from(bookmarkFolderNames));
+
+        // Get all tab groups in current window
+        const groups = await chrome.tabGroups.query({
+            windowId: chrome.windows.WINDOW_ID_CURRENT
+        });
+
+        let ungroupedCount = 0;
+
+        // Ungroup tabs in groups that match bookmark folder names
+        for (const group of groups) {
+            if (bookmarkFolderNames.has(group.title)) {
+                console.log(`Ungrouping bookmark-based group: ${group.title}`);
+
+                // Get all tabs in this group
+                const tabsInGroup = await chrome.tabs.query({
+                    groupId: group.id
+                });
+
+                // Ungroup each tab
+                for (const tab of tabsInGroup) {
+                    await chrome.tabs.ungroup(tab.id);
+                }
+
+                ungroupedCount++;
+            }
+        }
+
+        console.log(`Ungrouped ${ungroupedCount} bookmark-based groups`);
+        return ungroupedCount;
+    } catch (error) {
+        console.error('Error ungrouping bookmark groups:', error);
+        return 0;
+    }
+}
+
 // Debounced grouping
 function triggerAutoGroup() {
     if (groupingTimeout) {
@@ -733,12 +777,18 @@ chrome.commands.onCommand.addListener((command) => {
     }
 });
 
-// Message handler for re-grouping
+// Message handler for re-grouping and ungrouping
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === 'regroupTabs') {
         console.log('Re-grouping tabs based on updated rules');
         autoGroupTabs();
         sendResponse({ success: true });
+    } else if (message.action === 'ungroupBookmarkGroups') {
+        console.log('Ungrouping bookmark-based groups');
+        ungroupBookmarkGroups().then(count => {
+            sendResponse({ success: true, count: count });
+        });
+        return true; // Will respond asynchronously
     }
     return true;
 });
