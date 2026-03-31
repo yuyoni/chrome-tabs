@@ -53,8 +53,24 @@
     <!-- Rules Tab Content -->
     <div class="tab-content" id="rulesTab">
       <div class="rules-container">
+        <!-- Bookmark Grouping Setting -->
+        <div class="setting-section">
+          <h3>📚 Bookmark-based Grouping</h3>
+          <label class="toggle-label">
+            <input type="checkbox" id="bookmarkGroupingToggle" class="toggle-checkbox">
+            <span class="toggle-slider"></span>
+            <span class="toggle-text">Group tabs by bookmark folders</span>
+          </label>
+          <p class="setting-description">
+            Tabs matching URLs in your bookmark folders will be grouped together. This takes priority over domain grouping but not custom rules.
+          </p>
+        </div>
+
+        <div class="settings-divider"></div>
+
+        <!-- Custom Rules Section -->
         <h2>📋 Custom Grouping Rules</h2>
-        <p class="rules-subtitle">Create rules to automatically group tabs. Custom rules take priority over domain grouping.</p>
+        <p class="rules-subtitle">Create rules to automatically group tabs. Custom rules take priority over all other grouping methods.</p>
 
         <div id="rulesList"></div>
 

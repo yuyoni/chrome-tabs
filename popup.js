@@ -28,6 +28,7 @@ let selectedColor = 'blue';
 async function init() {
   await loadTabHistory();
   await loadGroupingRules();
+  await loadBookmarkSettings();
   displaySuggestions();
   setupEventListeners();
   setupTabNavigation();
@@ -277,6 +278,35 @@ async function handleClearHistory() {
 // RULES MANAGEMENT
 // ========================================
 
+// Load bookmark grouping settings
+async function loadBookmarkSettings() {
+  try {
+    const { useBookmarkGrouping = false } = await chrome.storage.local.get('useBookmarkGrouping');
+    const toggle = document.getElementById('bookmarkGroupingToggle');
+    if (toggle) {
+      toggle.checked = useBookmarkGrouping;
+    }
+  } catch (error) {
+    console.error('Error loading bookmark settings:', error);
+  }
+}
+
+// Toggle bookmark grouping
+async function toggleBookmarkGrouping() {
+  try {
+    const toggle = document.getElementById('bookmarkGroupingToggle');
+    const enabled = toggle.checked;
+    await chrome.storage.local.set({ useBookmarkGrouping: enabled });
+
+    console.log(`Bookmark grouping ${enabled ? 'enabled' : 'disabled'}`);
+
+    // Trigger re-grouping in background
+    chrome.runtime.sendMessage({ action: 'regroupTabs' });
+  } catch (error) {
+    console.error('Error toggling bookmark grouping:', error);
+  }
+}
+
 // Load grouping rules from storage
 async function loadGroupingRules() {
   try {
@@ -472,6 +502,12 @@ function setupTabNavigation() {
 
 // Setup rules event listeners
 function setupRulesEventListeners() {
+  // Bookmark grouping toggle
+  const bookmarkToggle = document.getElementById('bookmarkGroupingToggle');
+  if (bookmarkToggle) {
+    bookmarkToggle.addEventListener('change', toggleBookmarkGrouping);
+  }
+
   // Add rule button
   if (addRuleBtn) {
     addRuleBtn.addEventListener('click', () => {
