@@ -11,6 +11,7 @@ const suggestionsSection = document.getElementById('suggestionsSection');
 // DOM Elements - Rules Tab
 const rulesList = document.getElementById('rulesList');
 const addRuleBtn = document.getElementById('addRuleBtn');
+const triggerGroupingBtn = document.getElementById('triggerGroupingBtn');
 const ruleModal = document.getElementById('ruleModal');
 const saveRuleBtn = document.getElementById('saveRuleBtn');
 const cancelRuleBtn = document.getElementById('cancelRuleBtn');
@@ -291,6 +292,37 @@ async function loadBookmarkSettings() {
   }
 }
 
+// Manually trigger tab grouping
+async function triggerManualGrouping() {
+  try {
+    const btn = document.getElementById('triggerGroupingBtn');
+
+    // Disable button and show loading state
+    btn.disabled = true;
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = `
+      <span class="btn-icon-large">⏳</span>
+      <div class="btn-text">
+        <div class="btn-title">Grouping tabs...</div>
+        <div class="btn-subtitle">Please wait</div>
+      </div>
+    `;
+
+    // Send message to background to trigger grouping
+    chrome.runtime.sendMessage({ action: 'regroupTabs' }, () => {
+      // Restore button state
+      setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+      }, 1000);
+    });
+
+    console.log('Manual grouping triggered');
+  } catch (error) {
+    console.error('Error triggering manual grouping:', error);
+  }
+}
+
 // Toggle bookmark grouping
 async function toggleBookmarkGrouping() {
   try {
@@ -526,6 +558,11 @@ function setupTabNavigation() {
 
 // Setup rules event listeners
 function setupRulesEventListeners() {
+  // Manual grouping trigger button
+  if (triggerGroupingBtn) {
+    triggerGroupingBtn.addEventListener('click', triggerManualGrouping);
+  }
+
   // Bookmark grouping toggle
   const bookmarkToggle = document.getElementById('bookmarkGroupingToggle');
   if (bookmarkToggle) {
