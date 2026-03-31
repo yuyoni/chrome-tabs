@@ -357,9 +357,9 @@ function createRuleCard(rule, index) {
   name.className = 'rule-name';
   name.textContent = rule.groupName;
 
-  const colorIndicator = document.createElement('span');
+  const colorIndicator = document.createElement('div');
   colorIndicator.className = 'rule-color';
-  colorIndicator.textContent = getColorEmoji(rule.color);
+  colorIndicator.innerHTML = getColorIndicator(rule.color);
 
   header.appendChild(toggle);
   header.appendChild(name);
@@ -406,19 +406,21 @@ function getMatchTypeLabel(matchType) {
   return labels[matchType] || matchType;
 }
 
-// Get color emoji
-function getColorEmoji(color) {
-  const emojis = {
-    grey: '⚪',
-    blue: '🔵',
-    red: '🔴',
-    yellow: '🟡',
-    green: '🟢',
-    pink: '🌸',
-    purple: '🟣',
-    cyan: '🔵'
+// Get color indicator (colored circle)
+function getColorIndicator(color) {
+  const colors = {
+    grey: '#9AA0A6',
+    blue: '#4285F4',
+    red: '#EA4335',
+    yellow: '#FBBC04',
+    green: '#34A853',
+    pink: '#F439A0',
+    purple: '#A142F4',
+    cyan: '#24C1E0',
+    orange: '#FA903E'
   };
-  return emojis[color] || '⚪';
+  const bgColor = colors[color] || colors.grey;
+  return `<span class="color-indicator" style="background-color: ${bgColor};"></span>`;
 }
 
 // Toggle rule enabled/disabled

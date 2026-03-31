@@ -407,7 +407,16 @@ mark {
 }
 
 .rule-color {
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.color-indicator {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .rule-condition {
@@ -625,33 +634,44 @@ mark {
 
 .color-picker {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .color-btn {
-  width: 36px;
-  height: 36px;
-  border: 2px solid #e0e0e0;
+  width: 40px;
+  height: 40px;
+  border: 3px solid transparent;
   border-radius: 50%;
-  font-size: 20px;
   cursor: pointer;
-  background: white;
   transition: all 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .color-btn:hover {
-  border-color: #667eea;
-  transform: scale(1.1);
+  transform: scale(1.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .color-btn.selected {
-  border-color: #667eea;
-  border-width: 3px;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+  border-color: #333;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #333;
+}
+
+.color-check {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  opacity: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.color-btn.selected .color-check {
+  opacity: 1;
 }
 
 .checkbox-label {

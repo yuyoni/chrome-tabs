@@ -12,6 +12,7 @@ const CONFIG = {
         "pink",
         "purple",
         "cyan",
+        "orange",
     ],
 };
 
