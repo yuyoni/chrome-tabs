@@ -25,7 +25,7 @@
 ### Step 4: Verify Installation
 
 - The extension should appear in your extensions list
-- Look for **"Smart Tab Manager"** with the 🧠 icon
+- Look for **"Auto Tab Organizer"** with the 🧠 icon
 - The icon should appear in your Chrome toolbar
 - If not visible, click the puzzle piece (🧩) icon and pin it
 
@@ -75,7 +75,7 @@
 ### Extension Icon Not Showing
 
 - Click the puzzle piece (🧩) in the toolbar
-- Find "Smart Tab Manager"
+- Find "Auto Tab Organizer"
 - Click the pin icon to keep it visible
 
 ### Tabs Not Grouping

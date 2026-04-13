@@ -5,7 +5,7 @@
 
 set -e  # Exit on error
 
-echo "🔨 Building Smart Tab Manager Extension..."
+echo "🔨 Building Auto Tab Organizer Extension..."
 
 # Clean previous build
 if [ -d "dist" ]; then

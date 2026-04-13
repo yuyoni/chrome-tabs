@@ -2,7 +2,7 @@
 
 ## Extension Information
 
-**Name:** Smart Tab Manager
+**Name:** Auto Tab Organizer
 **Contact:** yuyeon116@gmail.com
 **Main Functionality:** Intelligent tab organization and browsing history search
 **Target Users:** Productivity users, developers, students, researchers, and anyone managing multiple browser tabs
@@ -84,7 +84,7 @@ All functionality is implemented using vanilla JavaScript included in the extens
 
 ### Information Collection and Use
 
-Smart Tab Manager ("the Extension") does NOT collect, store, or transmit any personal information to external servers. All data processing occurs locally within your browser.
+Auto Tab Organizer ("the Extension") does NOT collect, store, or transmit any personal information to external servers. All data processing occurs locally within your browser.
 
 ### Data Stored Locally
 
@@ -143,7 +143,7 @@ For questions or concerns about this privacy policy, please contact:
 
 ### Summary
 
-Smart Tab Manager is a privacy-first extension that:
+Auto Tab Organizer is a privacy-first extension that:
 
 - ✅ Processes all data locally in your browser
 - ✅ Never sends data to external servers

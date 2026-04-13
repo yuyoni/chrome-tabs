@@ -1,4 +1,4 @@
-# Smart Tab Manager - Chrome Web Store Description
+# Auto Tab Organizer - Chrome Web Store Description
 
 **Character count: ~4,800 / 16,000**
 
@@ -12,13 +12,13 @@ Transform chaos into clarity: Intelligent tab organization that learns from your
 
 ## 📝 Detailed Description
 
-**Smart Tab Manager** is your intelligent tab management assistant that eliminates tab clutter and makes browsing history searchable. Stop wasting time hunting through dozens of open tabs or trying to remember that important page you closed yesterday.
+**Auto Tab Organizer** is your intelligent tab management assistant that eliminates tab clutter and makes browsing history searchable. Stop wasting time hunting through dozens of open tabs or trying to remember that important page you closed yesterday.
 
 ### 🌟 Why You Need This Extension
 
 **Problem:** You have 30+ tabs open, can't find what you need, and Chrome is slowing down.
 
-**Solution:** Smart Tab Manager automatically organizes your tabs into color-coded groups and remembers everything you visit for instant recall.
+**Solution:** Auto Tab Organizer automatically organizes your tabs into color-coded groups and remembers everything you visit for instant recall.
 
 **Result:** A clean, organized browser with tabs grouped by topic, project, or workflow - exactly how you think.
 
@@ -435,27 +435,27 @@ Transform your chaotic browser into an organized productivity machine in 30 seco
 
 ---
 
-## 🏆 Why Smart Tab Manager Stands Out
+## 🏆 Why Auto Tab Organizer Stands Out
 
 ### vs. Other Tab Managers:
 
 ❌ **Others:** Manual grouping required
-✅ **Smart Tab Manager:** Fully automatic with 3-tier intelligence
+✅ **Auto Tab Organizer:** Fully automatic with 3-tier intelligence
 
 ❌ **Others:** Basic domain grouping only
-✅ **Smart Tab Manager:** Custom rules + bookmarks + domain
+✅ **Auto Tab Organizer:** Custom rules + bookmarks + domain
 
 ❌ **Others:** No search or history
-✅ **Smart Tab Manager:** Full-text search with 1,000 entry history
+✅ **Auto Tab Organizer:** Full-text search with 1,000 entry history
 
 ❌ **Others:** Limited customization
-✅ **Smart Tab Manager:** Unlimited rules, 9 colors, flexible matching
+✅ **Auto Tab Organizer:** Unlimited rules, 9 colors, flexible matching
 
 ❌ **Others:** Cloud sync with privacy concerns
-✅ **Smart Tab Manager:** 100% local, zero tracking guaranteed
+✅ **Auto Tab Organizer:** 100% local, zero tracking guaranteed
 
 ❌ **Others:** Complex setup required
-✅ **Smart Tab Manager:** Works immediately, customize later
+✅ **Auto Tab Organizer:** Works immediately, customize later
 
 ---
 
@@ -475,7 +475,7 @@ Transparent, auditable code. Review the logic yourself for peace of mind.
 
 ---
 
-**Smart Tab Manager** - Because your browser deserves better organization.
+**Auto Tab Organizer** - Because your browser deserves better organization.
 
 🧠 **Install now and experience the difference!**
 

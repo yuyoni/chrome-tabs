@@ -1,6 +1,6 @@
 # 🛠️ Build Scripts
 
-This folder contains build and development scripts for the Smart Tab Manager extension.
+This folder contains build and development scripts for the Auto Tab Organizer extension.
 
 ## 📋 Available Scripts
 

@@ -1,4 +1,193 @@
+// ========================================
+// TRANSLATIONS
+// ========================================
+
+const TRANSLATIONS = {
+    ko: {
+        subtitle: "탭 히스토리 검색",
+        tab_search: "🔍 검색",
+        tab_rules: "⚙️ 규칙",
+        tab_guide: "📖 가이드",
+        search_placeholder: "제목 또는 URL로 검색...",
+        clear_history: "기록 삭제",
+        recently_closed: "💡 최근 닫은 탭",
+        empty_state: "탭 기록이 없어요. 브라우징을 시작해보세요! 🚀",
+        all_tabs_open: "현재 모든 탭이 열려 있어요",
+        no_search_match: "검색 결과가 없어요",
+        btn_go: "이동",
+        btn_restore: "복원",
+        status_open: "● 열려있음",
+        result_count: (n) => `${n}개 결과`,
+        tabs_in_history: (n) => `히스토리 ${n}개`,
+        time_just_now: "방금 전",
+        time_minutes: (n) => `${n}분 전`,
+        time_hours: (n) => `${n}시간 전`,
+        time_days: (n) => `${n}일 전`,
+        closed_status: (time) => `${time} 닫힘`,
+        btn_regroup_title: "전체 탭 재그룹화",
+        btn_regroup_subtitle: "단축키: Alt+G (Mac: ⌥G)",
+        btn_regroup_loading: "그룹화 중...",
+        btn_regroup_wait: "잠시 기다려주세요",
+        bookmark_title: "📚 북마크 기반 그룹화",
+        bookmark_toggle_text: "북마크 폴더로 탭 그룹화",
+        bookmark_desc: "북마크 폴더에 저장된 URL과 일치하는 탭이 해당 폴더명으로 그룹화됩니다. 커스텀 규칙보다 우선순위가 낮아요.",
+        rules_title: "📋 커스텀 그룹화 규칙",
+        rules_subtitle: "규칙을 만들어 탭을 자동으로 그룹화하세요. 커스텀 규칙은 모든 그룹화 방식보다 우선합니다.",
+        no_rules: '규칙이 없어요. "+ 새 규칙 추가"를 눌러 만들어보세요.',
+        add_rule: "+ 새 규칙 추가",
+        modal_new_title: "➕ 새 그룹화 규칙",
+        modal_edit_title: "✏️ 그룹화 규칙 편집",
+        label_group_name: "그룹 이름:",
+        placeholder_group_name: "예: React 공부",
+        label_match: "매칭 조건:",
+        match_title: "제목 포함",
+        match_url: "URL 포함",
+        match_domain: "도메인 일치",
+        label_keyword: "키워드:",
+        label_color: "색상:",
+        label_enabled: "이 규칙 활성화",
+        btn_save: "저장",
+        btn_cancel: "취소",
+        confirm_clear: "탭 기록을 모두 삭제할까요? 되돌릴 수 없어요.",
+        confirm_delete_rule: "이 규칙을 삭제할까요? 되돌릴 수 없어요.",
+        confirm_ungroup: "북마크 기반 그룹핑을 비활성화합니다.\n\n현재 존재하는 북마크 폴더 기반 그룹들을 모두 해제하시겠습니까?\n\n(확인: 그룹 해제, 취소: 그룹 유지)",
+        alert_fill_fields: "모든 항목을 입력해주세요",
+        guide_welcome_sub: "브라우저 탭을 스마트하게 관리하는 확장 프로그램",
+        guide_search_title: "탭 검색",
+        guide_search_items: [
+            "검색창에 입력하면 <strong>제목</strong>, <strong>URL</strong>, <strong>도메인</strong>으로 탭을 찾을 수 있어요",
+            "첫 화면에는 <strong>최근 닫은 탭</strong> 10개가 자동으로 표시돼요",
+            "<strong>복원</strong> 버튼을 누르면 닫힌 탭을 다시 열어요",
+            "<strong>이동</strong> 버튼을 누르면 열려 있는 탭으로 바로 이동해요",
+        ],
+        guide_rules_title: "탭 그룹화 규칙",
+        guide_rules_items: [
+            "<strong>+ 새 규칙 추가</strong>를 눌러 그룹화 규칙을 만들어요",
+            "탭 <strong>제목</strong>, <strong>URL</strong>, <strong>도메인</strong> 중 하나로 조건을 설정해요",
+            "그룹 이름과 색상을 지정하면 자동으로 묶어줘요",
+            "규칙 옆 토글로 언제든지 켜고 끌 수 있어요",
+            "<strong>전체 탭 재그룹화</strong>를 누르면 지금 바로 규칙을 적용해요",
+        ],
+        guide_bookmark_title: "북마크 폴더 기반 그룹화",
+        guide_bookmark_items: [
+            "활성화하면 <strong>북마크 폴더</strong>를 기준으로 탭을 자동 그룹화해요",
+            "북마크 폴더에 저장된 URL과 일치하는 탭이 해당 폴더명으로 묶여요",
+            "커스텀 규칙보다는 우선순위가 낮아요",
+        ],
+        guide_shortcuts_title: "단축키",
+        guide_shortcut_open: "팝업 열기",
+        guide_shortcut_regroup: "탭 즉시 재그룹화",
+        guide_mac_note: "Mac에서는 Alt 대신 <kbd>⌥ Option</kbd> 키를 사용하세요",
+        guide_priority_title: "그룹화 우선순위",
+        guide_priority_desc: "여러 조건이 겹칠 때 이 순서로 적용돼요",
+        guide_p1_name: "커스텀 규칙",
+        guide_p1_desc: "직접 만든 규칙이 최우선",
+        guide_p2_name: "북마크 폴더",
+        guide_p2_desc: "활성화 시 적용",
+        guide_p3_name: "도메인 자동 그룹화",
+        guide_p3_desc: "같은 도메인끼리 묶기",
+    },
+    en: {
+        subtitle: "Search your browsing history",
+        tab_search: "🔍 Search",
+        tab_rules: "⚙️ Rules",
+        tab_guide: "📖 Guide",
+        search_placeholder: "Search by title or URL...",
+        clear_history: "Clear History",
+        recently_closed: "💡 Recently Closed",
+        empty_state: "No tabs found. Start browsing to build your tab memory! 🚀",
+        all_tabs_open: "All recent tabs are currently open",
+        no_search_match: "No tabs match your search",
+        btn_go: "Go",
+        btn_restore: "Restore",
+        status_open: "● Open",
+        result_count: (n) => `${n} result${n !== 1 ? "s" : ""}`,
+        tabs_in_history: (n) => `${n} tabs in history`,
+        time_just_now: "Just now",
+        time_minutes: (n) => `${n}m ago`,
+        time_hours: (n) => `${n}h ago`,
+        time_days: (n) => `${n}d ago`,
+        closed_status: (time) => `Closed ${time}`,
+        btn_regroup_title: "Re-group All Tabs",
+        btn_regroup_subtitle: "Shortcut: Alt+G (⌥G on Mac)",
+        btn_regroup_loading: "Grouping tabs...",
+        btn_regroup_wait: "Please wait",
+        bookmark_title: "📚 Bookmark-based Grouping",
+        bookmark_toggle_text: "Group tabs by bookmark folders",
+        bookmark_desc: "Tabs matching URLs in your bookmark folders will be grouped together. This takes priority over domain grouping but not custom rules.",
+        rules_title: "📋 Custom Grouping Rules",
+        rules_subtitle: "Create rules to automatically group tabs. Custom rules take priority over all other grouping methods.",
+        no_rules: 'No custom rules yet. Click "+ Add New Rule" to create one.',
+        add_rule: "+ Add New Rule",
+        modal_new_title: "➕ New Grouping Rule",
+        modal_edit_title: "✏️ Edit Grouping Rule",
+        label_group_name: "Group Name:",
+        placeholder_group_name: "e.g., React Study",
+        label_match: "Match Condition:",
+        match_title: "Title contains",
+        match_url: "URL contains",
+        match_domain: "Domain equals",
+        label_keyword: "Keyword:",
+        label_color: "Color:",
+        label_enabled: "Enable this rule",
+        btn_save: "Save",
+        btn_cancel: "Cancel",
+        confirm_clear: "Clear all tab history? This cannot be undone.",
+        confirm_delete_rule: "Delete this rule? This cannot be undone.",
+        confirm_ungroup: "Disable bookmark-based grouping.\n\nUngroup all current bookmark folder-based groups?\n\n(OK: Ungroup, Cancel: Keep groups)",
+        alert_fill_fields: "Please fill in all fields",
+        guide_welcome_sub: "Smart tab management for your browser",
+        guide_search_title: "Tab Search",
+        guide_search_items: [
+            "Search by <strong>title</strong>, <strong>URL</strong>, or <strong>domain</strong> using the search box",
+            "The first screen shows the <strong>10 most recently closed tabs</strong> automatically",
+            "Click <strong>Restore</strong> to reopen a closed tab",
+            "Click <strong>Go</strong> to switch to an already open tab",
+        ],
+        guide_rules_title: "Tab Grouping Rules",
+        guide_rules_items: [
+            "Click <strong>+ Add New Rule</strong> to create a grouping rule",
+            "Set a condition using tab <strong>title</strong>, <strong>URL</strong>, or <strong>domain</strong>",
+            "Assign a group name and color — tabs will be grouped automatically",
+            "Toggle rules on/off anytime with the switch next to each rule",
+            "Click <strong>Re-group All Tabs</strong> to apply rules immediately",
+        ],
+        guide_bookmark_title: "Bookmark Folder Grouping",
+        guide_bookmark_items: [
+            "Enable to auto-group tabs using your <strong>bookmark folders</strong>",
+            "Tabs with URLs saved in a bookmark folder get grouped under that folder's name",
+            "Lower priority than custom rules",
+        ],
+        guide_shortcuts_title: "Keyboard Shortcuts",
+        guide_shortcut_open: "Open popup",
+        guide_shortcut_regroup: "Re-group all tabs now",
+        guide_mac_note: "On Mac, use <kbd>⌥ Option</kbd> instead of Alt",
+        guide_priority_title: "Grouping Priority",
+        guide_priority_desc: "When multiple conditions overlap, this order applies",
+        guide_p1_name: "Custom Rules",
+        guide_p1_desc: "Your rules always take first priority",
+        guide_p2_name: "Bookmark Folders",
+        guide_p2_desc: "Applied when enabled",
+        guide_p3_name: "Domain Auto-grouping",
+        guide_p3_desc: "Groups tabs by same domain",
+    },
+};
+
+// ========================================
+// LANGUAGE STATE
+// ========================================
+
+let currentLang = "ko";
+
+function t(key, ...args) {
+    const val = TRANSLATIONS[currentLang][key];
+    if (typeof val === "function") return val(...args);
+    return val !== undefined ? val : key;
+}
+
+// ========================================
 // DOM Elements - Search Tab
+// ========================================
 const searchInput = document.getElementById("searchInput");
 const resultsList = document.getElementById("resultsList");
 const suggestionsList = document.getElementById("suggestionsList");
@@ -25,17 +214,169 @@ let groupingRules = [];
 let editingRuleIndex = -1;
 let selectedColor = "blue";
 
-// Initialize
+// ========================================
+// LANGUAGE MANAGEMENT
+// ========================================
+
+async function loadLanguage() {
+    try {
+        const { language = "ko" } = await chrome.storage.local.get("language");
+        currentLang = language;
+    } catch (error) {
+        currentLang = "ko";
+    }
+}
+
+async function saveLanguage(lang) {
+    try {
+        await chrome.storage.local.set({ language: lang });
+    } catch (error) {
+        console.error("Error saving language:", error);
+    }
+}
+
+function applyTranslations() {
+    // Update lang toggle button
+    const langToggle = document.getElementById("langToggle");
+    if (langToggle) {
+        langToggle.textContent = currentLang === "ko" ? "EN" : "한국어";
+    }
+
+    // Update textContent for data-i18n elements
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.dataset.i18n;
+        const value = t(key);
+        if (value && typeof value === "string") el.textContent = value;
+    });
+
+    // Update placeholder for data-i18n-placeholder elements
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+        const key = el.dataset.i18nPlaceholder;
+        const value = t(key);
+        if (value) el.placeholder = value;
+    });
+
+    // Regenerate guide tab content
+    renderGuideTab();
+}
+
+function renderGuideTab() {
+    const container = document.getElementById("guideContent");
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="guide-welcome">
+            <div class="guide-welcome-icon">🧠</div>
+            <h2>Auto Tab Organizer</h2>
+            <p>${t("guide_welcome_sub")}</p>
+        </div>
+
+        <div class="guide-card">
+            <div class="guide-card-header">
+                <span class="guide-card-icon">🔍</span>
+                <h3>${t("guide_search_title")}</h3>
+            </div>
+            <ul class="guide-list">
+                ${t("guide_search_items").map((item) => `<li>${item}</li>`).join("")}
+            </ul>
+        </div>
+
+        <div class="guide-card">
+            <div class="guide-card-header">
+                <span class="guide-card-icon">⚙️</span>
+                <h3>${t("guide_rules_title")}</h3>
+            </div>
+            <ul class="guide-list">
+                ${t("guide_rules_items").map((item) => `<li>${item}</li>`).join("")}
+            </ul>
+        </div>
+
+        <div class="guide-card">
+            <div class="guide-card-header">
+                <span class="guide-card-icon">📚</span>
+                <h3>${t("guide_bookmark_title")}</h3>
+            </div>
+            <ul class="guide-list">
+                ${t("guide_bookmark_items").map((item) => `<li>${item}</li>`).join("")}
+            </ul>
+        </div>
+
+        <div class="guide-card">
+            <div class="guide-card-header">
+                <span class="guide-card-icon">⌨️</span>
+                <h3>${t("guide_shortcuts_title")}</h3>
+            </div>
+            <div class="guide-shortcuts">
+                <div class="shortcut-row">
+                    <div class="shortcut-keys">
+                        <kbd>Alt</kbd><span class="shortcut-plus">+</span><kbd>S</kbd>
+                    </div>
+                    <span class="shortcut-desc">${t("guide_shortcut_open")}</span>
+                </div>
+                <div class="shortcut-row">
+                    <div class="shortcut-keys">
+                        <kbd>Alt</kbd><span class="shortcut-plus">+</span><kbd>G</kbd>
+                    </div>
+                    <span class="shortcut-desc">${t("guide_shortcut_regroup")}</span>
+                </div>
+            </div>
+            <p class="guide-note">${t("guide_mac_note")}</p>
+        </div>
+
+        <div class="guide-card">
+            <div class="guide-card-header">
+                <span class="guide-card-icon">🏆</span>
+                <h3>${t("guide_priority_title")}</h3>
+            </div>
+            <p class="guide-priority-desc">${t("guide_priority_desc")}</p>
+            <div class="guide-priority">
+                <div class="priority-item">
+                    <span class="priority-badge p1">1</span>
+                    <div class="priority-text">
+                        <strong>${t("guide_p1_name")}</strong>
+                        <span>${t("guide_p1_desc")}</span>
+                    </div>
+                </div>
+                <div class="priority-arrow">↓</div>
+                <div class="priority-item">
+                    <span class="priority-badge p2">2</span>
+                    <div class="priority-text">
+                        <strong>${t("guide_p2_name")}</strong>
+                        <span>${t("guide_p2_desc")}</span>
+                    </div>
+                </div>
+                <div class="priority-arrow">↓</div>
+                <div class="priority-item">
+                    <span class="priority-badge p3">3</span>
+                    <div class="priority-text">
+                        <strong>${t("guide_p3_name")}</strong>
+                        <span>${t("guide_p3_desc")}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// ========================================
+// INITIALIZE
+// ========================================
+
 async function init() {
+    await loadLanguage();
     await loadTabHistory();
     await loadGroupingRules();
     await loadBookmarkSettings();
+    applyTranslations();
     displaySuggestions();
     setupEventListeners();
     setupTabNavigation();
 }
 
-// Load tab history from storage
+// ========================================
+// TAB HISTORY
+// ========================================
+
 async function loadTabHistory() {
     try {
         const { tabHistory: history = [] } =
@@ -47,10 +388,30 @@ async function loadTabHistory() {
     }
 }
 
-// Setup event listeners
+// ========================================
+// EVENT LISTENERS
+// ========================================
+
 function setupEventListeners() {
     searchInput.addEventListener("input", debounce(handleSearch, 300));
     clearHistoryBtn.addEventListener("click", handleClearHistory);
+
+    // Language toggle
+    const langToggle = document.getElementById("langToggle");
+    if (langToggle) {
+        langToggle.addEventListener("click", async () => {
+            currentLang = currentLang === "ko" ? "en" : "ko";
+            await saveLanguage(currentLang);
+            applyTranslations();
+            // Refresh dynamic content in current language
+            if (searchInput.value.trim()) {
+                handleSearch();
+            } else {
+                displaySuggestions();
+            }
+            displayRules();
+        });
+    }
 }
 
 // Debounce helper
@@ -62,7 +423,10 @@ function debounce(func, delay) {
     };
 }
 
-// Handle search
+// ========================================
+// SEARCH
+// ========================================
+
 async function handleSearch() {
     const query = searchInput.value.trim().toLowerCase();
 
@@ -71,7 +435,6 @@ async function handleSearch() {
         return;
     }
 
-    // Filter tabs by query
     const filteredTabs = tabHistory.filter((tab) => {
         const titleMatch = tab.title.toLowerCase().includes(query);
         const urlMatch = tab.url.toLowerCase().includes(query);
@@ -80,14 +443,12 @@ async function handleSearch() {
         return titleMatch || urlMatch || domainMatch;
     });
 
-    // Get currently open tabs to check status
     const openTabs = await chrome.tabs.query({});
     const openTabsMap = new Map(openTabs.map((tab) => [tab.url, tab]));
 
     displayResults(filteredTabs, query, openTabsMap);
 }
 
-// Display suggestions (recently closed tabs)
 async function displaySuggestions() {
     suggestionsSection.style.display = "block";
     resultsSection.style.display = "none";
@@ -100,11 +461,9 @@ async function displaySuggestions() {
 
     emptyState.style.display = "none";
 
-    // Get current open tabs
     const openTabs = await chrome.tabs.query({});
     const openTabsMap = new Map(openTabs.map((tab) => [tab.url, tab]));
 
-    // Filter out currently open tabs and get recent 10
     const recentClosed = tabHistory
         .filter((tab) => !openTabsMap.has(tab.url))
         .slice(0, 10);
@@ -112,8 +471,7 @@ async function displaySuggestions() {
     suggestionsList.innerHTML = "";
 
     if (recentClosed.length === 0) {
-        suggestionsList.innerHTML =
-            '<p class="no-results">All recent tabs are currently open</p>';
+        suggestionsList.innerHTML = `<p class="no-results">${t("all_tabs_open")}</p>`;
         return;
     }
 
@@ -122,21 +480,19 @@ async function displaySuggestions() {
         suggestionsList.appendChild(tabCard);
     });
 
-    resultCount.textContent = `${tabHistory.length} tabs in history`;
+    resultCount.textContent = t("tabs_in_history", tabHistory.length);
 }
 
-// Display search results
 function displayResults(filteredTabs, query, openTabsMap) {
     suggestionsSection.style.display = "none";
     resultsSection.style.display = "block";
     emptyState.style.display = "none";
 
     resultsList.innerHTML = "";
-    resultCount.textContent = `${filteredTabs.length} result${filteredTabs.length !== 1 ? "s" : ""}`;
+    resultCount.textContent = t("result_count", filteredTabs.length);
 
     if (filteredTabs.length === 0) {
-        resultsList.innerHTML =
-            '<p class="no-results">No tabs match your search</p>';
+        resultsList.innerHTML = `<p class="no-results">${t("no_search_match")}</p>`;
         return;
     }
 
@@ -146,22 +502,13 @@ function displayResults(filteredTabs, query, openTabsMap) {
     });
 }
 
-// Create tab card element
-function createTabCard(
-    tab,
-    highlight = false,
-    query = "",
-    openTabsMap = new Map(),
-) {
+function createTabCard(tab, highlight = false, query = "", openTabsMap = new Map()) {
     const card = document.createElement("div");
 
-    // Check if tab is currently open
     const openTab = openTabsMap.get(tab.url);
     const isOpen = !!openTab;
 
-    card.className = isOpen
-        ? "tab-card tab-card-open"
-        : "tab-card tab-card-closed";
+    card.className = isOpen ? "tab-card tab-card-open" : "tab-card tab-card-closed";
 
     const info = document.createElement("div");
     info.className = "tab-info";
@@ -169,7 +516,6 @@ function createTabCard(
     const title = document.createElement("div");
     title.className = "tab-title";
     title.textContent = tab.title || "Untitled";
-
     if (highlight && query) {
         title.innerHTML = highlightText(tab.title || "Untitled", query);
     }
@@ -177,7 +523,6 @@ function createTabCard(
     const url = document.createElement("div");
     url.className = "tab-url";
     url.textContent = truncateUrl(tab.url);
-
     if (highlight && query) {
         url.innerHTML = highlightText(truncateUrl(tab.url), query);
     }
@@ -185,19 +530,15 @@ function createTabCard(
     const statusContainer = document.createElement("div");
     statusContainer.className = "tab-status";
 
+    const statusBadge = document.createElement("span");
     if (isOpen) {
-        // Currently open tab
-        const statusBadge = document.createElement("span");
         statusBadge.className = "status-badge status-open";
-        statusBadge.textContent = "● Open";
-        statusContainer.appendChild(statusBadge);
+        statusBadge.textContent = t("status_open");
     } else {
-        // Closed tab - show when it was closed
-        const statusBadge = document.createElement("span");
         statusBadge.className = "status-badge status-closed";
-        statusBadge.textContent = `Closed ${formatTime(tab.timestamp)}`;
-        statusContainer.appendChild(statusBadge);
+        statusBadge.textContent = t("closed_status", formatTime(tab.timestamp));
     }
+    statusContainer.appendChild(statusBadge);
 
     info.appendChild(title);
     info.appendChild(url);
@@ -207,10 +548,10 @@ function createTabCard(
     actionBtn.className = "btn-reopen";
 
     if (isOpen) {
-        actionBtn.textContent = "Go";
+        actionBtn.textContent = t("btn_go");
         actionBtn.onclick = () => switchToTab(openTab.id);
     } else {
-        actionBtn.textContent = "Restore";
+        actionBtn.textContent = t("btn_restore");
         actionBtn.onclick = () => reopenTab(tab.url);
     }
 
@@ -220,25 +561,21 @@ function createTabCard(
     return card;
 }
 
-// Highlight matching text
 function highlightText(text, query) {
     const regex = new RegExp(`(${escapeRegex(query)})`, "gi");
     return text.replace(regex, "<mark>$1</mark>");
 }
 
-// Escape regex special characters
 function escapeRegex(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-// Truncate URL for display
 function truncateUrl(url) {
     const maxLength = 60;
     if (url.length <= maxLength) return url;
     return url.substring(0, maxLength) + "...";
 }
 
-// Format timestamp
 function formatTime(timestamp) {
     const now = Date.now();
     const diff = now - timestamp;
@@ -247,35 +584,29 @@ function formatTime(timestamp) {
     const hours = Math.floor(diff / 3600000);
     const days = Math.floor(diff / 86400000);
 
-    if (minutes < 1) return "Just now";
-    if (minutes < 60) return `${minutes}m ago`;
-    if (hours < 24) return `${hours}h ago`;
-    if (days < 7) return `${days}d ago`;
+    if (minutes < 1) return t("time_just_now");
+    if (minutes < 60) return t("time_minutes", minutes);
+    if (hours < 24) return t("time_hours", hours);
+    if (days < 7) return t("time_days", days);
 
     const date = new Date(timestamp);
     return date.toLocaleDateString();
 }
 
-// Switch to existing tab
 function switchToTab(tabId) {
     chrome.tabs.update(tabId, { active: true }, (tab) => {
-        // Also switch to the window containing this tab
         chrome.windows.update(tab.windowId, { focused: true });
     });
     window.close();
 }
 
-// Reopen closed tab
 function reopenTab(url) {
     chrome.tabs.create({ url, active: true });
     window.close();
 }
 
-// Clear history
 async function handleClearHistory() {
-    if (!confirm("Clear all tab history? This cannot be undone.")) {
-        return;
-    }
+    if (!confirm(t("confirm_clear"))) return;
 
     try {
         await chrome.storage.local.set({ tabHistory: [] });
@@ -290,7 +621,6 @@ async function handleClearHistory() {
 // RULES MANAGEMENT
 // ========================================
 
-// Load bookmark grouping settings
 async function loadBookmarkSettings() {
     try {
         const { useBookmarkGrouping = false } = await chrome.storage.local.get(
@@ -305,62 +635,44 @@ async function loadBookmarkSettings() {
     }
 }
 
-// Manually trigger tab grouping
 async function triggerManualGrouping() {
     try {
         const btn = document.getElementById("triggerGroupingBtn");
-
-        // Disable button and show loading state
         btn.disabled = true;
         const originalHTML = btn.innerHTML;
         btn.innerHTML = `
-      <span class="btn-icon-large">⏳</span>
-      <div class="btn-text">
-        <div class="btn-title">Grouping tabs...</div>
-        <div class="btn-subtitle">Please wait</div>
-      </div>
-    `;
+            <span class="btn-icon-large">⏳</span>
+            <div class="btn-text">
+                <div class="btn-title">${t("btn_regroup_loading")}</div>
+                <div class="btn-subtitle">${t("btn_regroup_wait")}</div>
+            </div>
+        `;
 
-        // Send message to background to trigger grouping
         chrome.runtime.sendMessage({ action: "regroupTabs" }, () => {
-            // Restore button state
             setTimeout(() => {
                 btn.innerHTML = originalHTML;
                 btn.disabled = false;
             }, 1000);
         });
-
-        console.log("Manual grouping triggered");
     } catch (error) {
         console.error("Error triggering manual grouping:", error);
     }
 }
 
-// Toggle bookmark grouping
 async function toggleBookmarkGrouping() {
     try {
         const toggle = document.getElementById("bookmarkGroupingToggle");
         const enabled = toggle.checked;
 
-        // If turning OFF, ask user if they want to ungroup bookmark-based groups
         if (!enabled) {
-            const shouldUngroup = confirm(
-                "북마크 기반 그룹핑을 비활성화합니다.\n\n" +
-                    "현재 존재하는 북마크 폴더 기반 그룹들을 모두 해제하시겠습니까?\n\n" +
-                    "(확인: 그룹 해제, 취소: 그룹 유지)",
-            );
+            const shouldUngroup = confirm(t("confirm_ungroup"));
 
             if (shouldUngroup) {
-                // Send message to background to ungroup bookmark-based groups
                 chrome.runtime.sendMessage(
-                    {
-                        action: "ungroupBookmarkGroups",
-                    },
+                    { action: "ungroupBookmarkGroups" },
                     (response) => {
                         if (response && response.success) {
-                            console.log(
-                                `Ungrouped ${response.count} bookmark-based groups`,
-                            );
+                            console.log(`Ungrouped ${response.count} bookmark-based groups`);
                         }
                     },
                 );
@@ -368,9 +680,7 @@ async function toggleBookmarkGrouping() {
         }
 
         await chrome.storage.local.set({ useBookmarkGrouping: enabled });
-        console.log(`Bookmark grouping ${enabled ? "enabled" : "disabled"}`);
 
-        // Trigger re-grouping in background (only when enabling)
         if (enabled) {
             chrome.runtime.sendMessage({ action: "regroupTabs" });
         }
@@ -379,7 +689,6 @@ async function toggleBookmarkGrouping() {
     }
 }
 
-// Load grouping rules from storage
 async function loadGroupingRules() {
     try {
         const { groupingRules: rules = [] } =
@@ -392,15 +701,13 @@ async function loadGroupingRules() {
     }
 }
 
-// Display rules list
 function displayRules() {
     if (!rulesList) return;
 
     rulesList.innerHTML = "";
 
     if (groupingRules.length === 0) {
-        rulesList.innerHTML =
-            '<p class="no-rules">No custom rules yet. Click "+ Add New Rule" to create one.</p>';
+        rulesList.innerHTML = `<p class="no-rules">${t("no_rules")}</p>`;
         return;
     }
 
@@ -410,7 +717,6 @@ function displayRules() {
     });
 }
 
-// Create rule card element
 function createRuleCard(rule, index) {
     const card = document.createElement("div");
     card.className = `rule-card ${rule.enabled ? "enabled" : "disabled"}`;
@@ -470,17 +776,15 @@ function createRuleCard(rule, index) {
     return card;
 }
 
-// Get match type label
 function getMatchTypeLabel(matchType) {
-    const labels = {
-        title: "Title contains",
-        url: "URL contains",
-        domain: "Domain equals",
+    const keys = {
+        title: "match_title",
+        url: "match_url",
+        domain: "match_domain",
     };
-    return labels[matchType] || matchType;
+    return t(keys[matchType] || matchType);
 }
 
-// Get color indicator (colored circle)
 function getColorIndicator(color) {
     const colors = {
         grey: "#9AA0A6",
@@ -497,33 +801,27 @@ function getColorIndicator(color) {
     return `<span class="color-indicator" style="background-color: ${bgColor};"></span>`;
 }
 
-// Toggle rule enabled/disabled
 async function toggleRule(index) {
     groupingRules[index].enabled = !groupingRules[index].enabled;
     await saveGroupingRules();
     displayRules();
-
-    // Trigger re-grouping in background
     chrome.runtime.sendMessage({ action: "regroupTabs" });
 }
 
-// Edit rule
 function editRule(index) {
     editingRuleIndex = index;
     const rule = groupingRules[index];
 
-    document.getElementById("modalTitle").textContent = "✏️ Edit Grouping Rule";
+    document.getElementById("modalTitle").textContent = t("modal_edit_title");
     ruleGroupNameInput.value = rule.groupName;
     ruleKeywordInput.value = rule.keyword;
     ruleEnabledCheckbox.checked = rule.enabled;
     selectedColor = rule.color;
 
-    // Set match type radio
     document.querySelector(
         `input[name="matchType"][value="${rule.matchType}"]`,
     ).checked = true;
 
-    // Highlight selected color
     document.querySelectorAll(".color-btn").forEach((btn) => {
         btn.classList.toggle("selected", btn.dataset.color === selectedColor);
     });
@@ -531,21 +829,15 @@ function editRule(index) {
     ruleModal.classList.remove("hidden");
 }
 
-// Delete rule
 async function deleteRule(index) {
-    if (!confirm("Delete this rule? This cannot be undone.")) {
-        return;
-    }
+    if (!confirm(t("confirm_delete_rule"))) return;
 
     groupingRules.splice(index, 1);
     await saveGroupingRules();
     displayRules();
-
-    // Trigger re-grouping in background
     chrome.runtime.sendMessage({ action: "regroupTabs" });
 }
 
-// Save grouping rules to storage
 async function saveGroupingRules() {
     try {
         await chrome.storage.local.set({ groupingRules });
@@ -554,7 +846,10 @@ async function saveGroupingRules() {
     }
 }
 
-// Setup tab navigation
+// ========================================
+// TAB NAVIGATION
+// ========================================
+
 function setupTabNavigation() {
     const tabBtns = document.querySelectorAll(".tab-btn");
     const tabContents = document.querySelectorAll(".tab-content");
@@ -563,14 +858,12 @@ function setupTabNavigation() {
         btn.addEventListener("click", () => {
             const tabName = btn.dataset.tab;
 
-            // Update active states
             tabBtns.forEach((b) => b.classList.remove("active"));
             tabContents.forEach((c) => c.classList.remove("active"));
 
             btn.classList.add("active");
             document.getElementById(`${tabName}Tab`).classList.add("active");
 
-            // Load rules when switching to rules tab
             if (tabName === "rules") {
                 displayRules();
             }
@@ -578,25 +871,24 @@ function setupTabNavigation() {
     });
 }
 
-// Setup rules event listeners
+// ========================================
+// RULES EVENT LISTENERS
+// ========================================
+
 function setupRulesEventListeners() {
-    // Manual grouping trigger button
     if (triggerGroupingBtn) {
         triggerGroupingBtn.addEventListener("click", triggerManualGrouping);
     }
 
-    // Bookmark grouping toggle
     const bookmarkToggle = document.getElementById("bookmarkGroupingToggle");
     if (bookmarkToggle) {
         bookmarkToggle.addEventListener("change", toggleBookmarkGrouping);
     }
 
-    // Add rule button
     if (addRuleBtn) {
         addRuleBtn.addEventListener("click", () => {
             editingRuleIndex = -1;
-            document.getElementById("modalTitle").textContent =
-                "➕ New Grouping Rule";
+            document.getElementById("modalTitle").textContent = t("modal_new_title");
             ruleGroupNameInput.value = "";
             ruleKeywordInput.value = "";
             ruleEnabledCheckbox.checked = true;
@@ -614,41 +906,33 @@ function setupRulesEventListeners() {
         });
     }
 
-    // Save rule button
     if (saveRuleBtn) {
         saveRuleBtn.addEventListener("click", saveRule);
     }
 
-    // Cancel button
     if (cancelRuleBtn) {
         cancelRuleBtn.addEventListener("click", () => {
             ruleModal.classList.add("hidden");
         });
     }
 
-    // Color picker
     document.querySelectorAll(".color-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
             selectedColor = btn.dataset.color;
-            document
-                .querySelectorAll(".color-btn")
-                .forEach((b) => b.classList.remove("selected"));
+            document.querySelectorAll(".color-btn").forEach((b) => b.classList.remove("selected"));
             btn.classList.add("selected");
         });
     });
 }
 
-// Save rule
 async function saveRule() {
     const groupName = ruleGroupNameInput.value.trim();
     const keyword = ruleKeywordInput.value.trim();
-    const matchType = document.querySelector(
-        'input[name="matchType"]:checked',
-    ).value;
+    const matchType = document.querySelector('input[name="matchType"]:checked').value;
     const enabled = ruleEnabledCheckbox.checked;
 
     if (!groupName || !keyword) {
-        alert("Please fill in all fields");
+        alert(t("alert_fill_fields"));
         return;
     }
 
@@ -662,24 +946,20 @@ async function saveRule() {
     };
 
     if (editingRuleIndex >= 0) {
-        // Update existing rule
-        groupingRules[editingRuleIndex] = {
-            ...groupingRules[editingRuleIndex],
-            ...rule,
-        };
+        groupingRules[editingRuleIndex] = { ...groupingRules[editingRuleIndex], ...rule };
     } else {
-        // Add new rule
         groupingRules.push(rule);
     }
 
     await saveGroupingRules();
     displayRules();
     ruleModal.classList.add("hidden");
-
-    // Trigger re-grouping in background
     chrome.runtime.sendMessage({ action: "regroupTabs" });
 }
 
-// Initialize on load
+// ========================================
+// ENTRY POINT
+// ========================================
+
 init();
 setupRulesEventListeners();

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🔍 Smart Tab Manager - Extension Verification"
+echo "🔍 Auto Tab Organizer - Extension Verification"
 echo "=============================================="
 echo ""
 

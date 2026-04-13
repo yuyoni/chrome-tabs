@@ -1,4 +1,4 @@
-# 🧠 Smart Tab Manager - Project Summary
+# 🧠 Auto Tab Organizer - Project Summary
 
 ## ✅ What Was Built
 

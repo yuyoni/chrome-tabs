@@ -3,22 +3,26 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Smart Tab Manager</title>
+        <title>Auto Tab Organizer</title>
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
         <div class="container">
             <header>
-                <h1>🧠 Smart Tab Manager</h1>
-                <p class="subtitle">Search your browsing history</p>
+                <div class="header-top">
+                    <h1>🧠 Auto Tab Organizer</h1>
+                    <button id="langToggle" class="lang-toggle">EN</button>
+                </div>
+                <p class="subtitle" data-i18n="subtitle">탭 히스토리 검색</p>
             </header>
 
             <!-- Tab Navigation -->
             <nav class="tab-nav">
-                <button class="tab-btn active" data-tab="search">
-                    🔍 Search
+                <button class="tab-btn active" data-tab="search" data-i18n="tab_search">
+                    🔍 검색
                 </button>
-                <button class="tab-btn" data-tab="rules">⚙️ Rules</button>
+                <button class="tab-btn" data-tab="rules" data-i18n="tab_rules">⚙️ 규칙</button>
+                <button class="tab-btn" data-tab="guide" data-i18n="tab_guide">📖 가이드</button>
             </nav>
 
             <!-- Search Tab Content -->
@@ -27,20 +31,21 @@
                     <input
                         type="text"
                         id="searchInput"
-                        placeholder="Search by title or URL..."
+                        data-i18n-placeholder="search_placeholder"
+                        placeholder="제목 또는 URL로 검색..."
                         autofocus
                     />
                     <div class="search-info">
-                        <span id="resultCount">0 results</span>
-                        <button id="clearHistory" class="btn-secondary">
-                            Clear History
+                        <span id="resultCount"></span>
+                        <button id="clearHistory" class="btn-secondary" data-i18n="clear_history">
+                            기록 삭제
                         </button>
                     </div>
                 </div>
 
                 <div class="tabs-section">
                     <div id="suggestionsSection" class="suggestions">
-                        <h3>💡 Recently Closed</h3>
+                        <h3 data-i18n="recently_closed">💡 최근 닫은 탭</h3>
                         <div id="suggestionsList"></div>
                     </div>
 
@@ -49,9 +54,8 @@
                     </div>
 
                     <div id="emptyState" class="empty-state">
-                        <p>
-                            No tabs found. Start browsing to build your tab
-                            memory! 🚀
+                        <p data-i18n="empty_state">
+                            탭 기록이 없어요. 브라우징을 시작해보세요! 🚀
                         </p>
                     </div>
                 </div>
@@ -65,9 +69,9 @@
                         <button id="triggerGroupingBtn" class="btn-action">
                             <span class="btn-icon-large">🔄</span>
                             <div class="btn-text">
-                                <div class="btn-title">Re-group All Tabs</div>
-                                <div class="btn-subtitle">
-                                    Shortcut: Alt+G (⌥G on Mac)
+                                <div class="btn-title" data-i18n="btn_regroup_title">전체 탭 재그룹화</div>
+                                <div class="btn-subtitle" data-i18n="btn_regroup_subtitle">
+                                    단축키: Alt+G (Mac: ⌥G)
                                 </div>
                             </div>
                         </button>
@@ -77,7 +81,7 @@
 
                     <!-- Bookmark Grouping Setting -->
                     <div class="setting-section">
-                        <h3>📚 Bookmark-based Grouping</h3>
+                        <h3 data-i18n="bookmark_title">📚 북마크 기반 그룹화</h3>
                         <label class="toggle-label">
                             <input
                                 type="checkbox"
@@ -85,50 +89,46 @@
                                 class="toggle-checkbox"
                             />
                             <span class="toggle-slider"></span>
-                            <span class="toggle-text"
-                                >Group tabs by bookmark folders</span
-                            >
+                            <span class="toggle-text" data-i18n="bookmark_toggle_text">북마크 폴더로 탭 그룹화</span>
                         </label>
-                        <p class="setting-description">
-                            Tabs matching URLs in your bookmark folders will be
-                            grouped together. This takes priority over domain
-                            grouping but not custom rules.
+                        <p class="setting-description" data-i18n="bookmark_desc">
+                            북마크 폴더에 저장된 URL과 일치하는 탭이 해당 폴더명으로 그룹화됩니다. 커스텀 규칙보다 우선순위가 낮아요.
                         </p>
                     </div>
 
                     <div class="settings-divider"></div>
 
                     <!-- Custom Rules Section -->
-                    <h2>📋 Custom Grouping Rules</h2>
-                    <p class="rules-subtitle">
-                        Create rules to automatically group tabs. Custom rules
-                        take priority over all other grouping methods.
+                    <h2 data-i18n="rules_title">📋 커스텀 그룹화 규칙</h2>
+                    <p class="rules-subtitle" data-i18n="rules_subtitle">
+                        규칙을 만들어 탭을 자동으로 그룹화하세요. 커스텀 규칙은 모든 그룹화 방식보다 우선합니다.
                     </p>
 
                     <div id="rulesList"></div>
 
-                    <button id="addRuleBtn" class="btn-primary">
-                        + Add New Rule
+                    <button id="addRuleBtn" class="btn-primary" data-i18n="add_rule">
+                        + 새 규칙 추가
                     </button>
                 </div>
 
                 <!-- Add/Edit Rule Modal -->
                 <div id="ruleModal" class="modal hidden">
                     <div class="modal-content">
-                        <h3 id="modalTitle">➕ New Grouping Rule</h3>
+                        <h3 id="modalTitle">➕ 새 그룹화 규칙</h3>
 
                         <div class="form-group">
-                            <label>Group Name:</label>
+                            <label data-i18n="label_group_name">그룹 이름:</label>
                             <input
                                 type="text"
                                 id="ruleGroupName"
-                                placeholder="e.g., React Study"
+                                data-i18n-placeholder="placeholder_group_name"
+                                placeholder="예: React 공부"
                                 maxlength="30"
                             />
                         </div>
 
                         <div class="form-group">
-                            <label>Match Condition:</label>
+                            <label data-i18n="label_match">매칭 조건:</label>
                             <div class="radio-group">
                                 <label class="radio-label">
                                     <input
@@ -137,7 +137,7 @@
                                         value="title"
                                         checked
                                     />
-                                    Title contains
+                                    <span data-i18n="match_title">제목 포함</span>
                                 </label>
                                 <label class="radio-label">
                                     <input
@@ -145,7 +145,7 @@
                                         name="matchType"
                                         value="url"
                                     />
-                                    URL contains
+                                    <span data-i18n="match_url">URL 포함</span>
                                 </label>
                                 <label class="radio-label">
                                     <input
@@ -153,13 +153,13 @@
                                         name="matchType"
                                         value="domain"
                                     />
-                                    Domain equals
+                                    <span data-i18n="match_domain">도메인 일치</span>
                                 </label>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Keyword:</label>
+                            <label data-i18n="label_keyword">키워드:</label>
                             <input
                                 type="text"
                                 id="ruleKeyword"
@@ -168,113 +168,38 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Color:</label>
+                            <label data-i18n="label_color">색상:</label>
                             <div class="color-picker">
-                                <button
-                                    type="button"
-                                    class="color-btn"
-                                    data-color="grey"
-                                    style="background-color: #9aa0a6"
-                                    title="Grey"
-                                >
-                                    <span class="color-check">✓</span>
-                                </button>
-                                <button
-                                    type="button"
-                                    class="color-btn"
-                                    data-color="blue"
-                                    style="background-color: #4285f4"
-                                    title="Blue"
-                                >
-                                    <span class="color-check">✓</span>
-                                </button>
-                                <button
-                                    type="button"
-                                    class="color-btn"
-                                    data-color="red"
-                                    style="background-color: #ea4335"
-                                    title="Red"
-                                >
-                                    <span class="color-check">✓</span>
-                                </button>
-                                <button
-                                    type="button"
-                                    class="color-btn"
-                                    data-color="yellow"
-                                    style="background-color: #fbbc04"
-                                    title="Yellow"
-                                >
-                                    <span class="color-check">✓</span>
-                                </button>
-                                <button
-                                    type="button"
-                                    class="color-btn"
-                                    data-color="green"
-                                    style="background-color: #34a853"
-                                    title="Green"
-                                >
-                                    <span class="color-check">✓</span>
-                                </button>
-                                <button
-                                    type="button"
-                                    class="color-btn"
-                                    data-color="pink"
-                                    style="background-color: #f439a0"
-                                    title="Pink"
-                                >
-                                    <span class="color-check">✓</span>
-                                </button>
-                                <button
-                                    type="button"
-                                    class="color-btn"
-                                    data-color="purple"
-                                    style="background-color: #a142f4"
-                                    title="Purple"
-                                >
-                                    <span class="color-check">✓</span>
-                                </button>
-                                <button
-                                    type="button"
-                                    class="color-btn"
-                                    data-color="cyan"
-                                    style="background-color: #24c1e0"
-                                    title="Cyan"
-                                >
-                                    <span class="color-check">✓</span>
-                                </button>
-                                <button
-                                    type="button"
-                                    class="color-btn"
-                                    data-color="orange"
-                                    style="background-color: #fa903e"
-                                    title="Orange"
-                                >
-                                    <span class="color-check">✓</span>
-                                </button>
+                                <button type="button" class="color-btn" data-color="grey" style="background-color: #9aa0a6" title="Grey"><span class="color-check">✓</span></button>
+                                <button type="button" class="color-btn" data-color="blue" style="background-color: #4285f4" title="Blue"><span class="color-check">✓</span></button>
+                                <button type="button" class="color-btn" data-color="red" style="background-color: #ea4335" title="Red"><span class="color-check">✓</span></button>
+                                <button type="button" class="color-btn" data-color="yellow" style="background-color: #fbbc04" title="Yellow"><span class="color-check">✓</span></button>
+                                <button type="button" class="color-btn" data-color="green" style="background-color: #34a853" title="Green"><span class="color-check">✓</span></button>
+                                <button type="button" class="color-btn" data-color="pink" style="background-color: #f439a0" title="Pink"><span class="color-check">✓</span></button>
+                                <button type="button" class="color-btn" data-color="purple" style="background-color: #a142f4" title="Purple"><span class="color-check">✓</span></button>
+                                <button type="button" class="color-btn" data-color="cyan" style="background-color: #24c1e0" title="Cyan"><span class="color-check">✓</span></button>
+                                <button type="button" class="color-btn" data-color="orange" style="background-color: #fa903e" title="Orange"><span class="color-check">✓</span></button>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="checkbox-label">
-                                <input
-                                    type="checkbox"
-                                    id="ruleEnabled"
-                                    checked
-                                />
-                                Enable this rule
+                                <input type="checkbox" id="ruleEnabled" checked />
+                                <span data-i18n="label_enabled">이 규칙 활성화</span>
                             </label>
                         </div>
 
                         <div class="modal-actions">
-                            <button id="saveRuleBtn" class="btn-primary">
-                                Save
-                            </button>
-                            <button id="cancelRuleBtn" class="btn-secondary">
-                                Cancel
-                            </button>
+                            <button id="saveRuleBtn" class="btn-primary" data-i18n="btn_save">저장</button>
+                            <button id="cancelRuleBtn" class="btn-secondary" data-i18n="btn_cancel">취소</button>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Guide Tab Content (generated by JS) -->
+            <div class="tab-content" id="guideTab">
+                <div class="guide-container" id="guideContent"></div>
             </div>
         </div>
 

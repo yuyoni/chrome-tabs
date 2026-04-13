@@ -1,4 +1,4 @@
-# 🧠 Smart Tab Manager - Memory Usage Analysis
+# 🧠 Auto Tab Organizer - Memory Usage Analysis
 
 ## 📊 Actual Memory Footprint
 
@@ -21,7 +21,7 @@
 - One Chrome tab (heavy site): ~200-500 MB
 - Gmail tab: ~150-300 MB
 - YouTube tab: ~200-400 MB
-- **Smart Tab Manager**: **2-10 MB** (0.5-2% of one tab)
+- **Auto Tab Organizer**: **2-10 MB** (0.5-2% of one tab)
 
 **Conclusion:** This extension uses **less memory than a single browser tab**.
 
@@ -206,7 +206,7 @@ Result: Minimal baseline memory
 
 ```
 1. Open Chrome Task Manager (Shift+Esc or ⌘+Option+Esc on Mac)
-2. Look for "Extension: Smart Tab Manager"
+2. Look for "Extension: Auto Tab Organizer"
 3. Check "Memory footprint" column
 4. Compare with other tabs/extensions
 ```
@@ -215,7 +215,7 @@ Result: Minimal baseline memory
 
 ```
 1. Navigate to chrome://extensions-internals/
-2. Find "Smart Tab Manager"
+2. Find "Auto Tab Organizer"
 3. Click "Inspect views: service worker"
 4. Go to Memory tab
 5. Take heap snapshot
@@ -237,7 +237,7 @@ Result: Minimal baseline memory
 
 | Extension             | Type             | Typical Memory | Notes                       |
 | --------------------- | ---------------- | -------------- | --------------------------- |
-| **Smart Tab Manager** | Tab Manager      | **2-10 MB**    | Service worker + popup      |
+| **Auto Tab Organizer** | Tab Manager      | **2-10 MB**    | Service worker + popup      |
 | Honey                 | Shopping         | 20-40 MB       | Always scanning pages       |
 | Grammarly             | Writing          | 30-60 MB       | Content script on all pages |
 | LastPass              | Password         | 25-50 MB       | Persistent background       |
@@ -245,7 +245,7 @@ Result: Minimal baseline memory
 | Evernote Web Clipper  | Note Taking      | 15-35 MB       | Content analysis            |
 | Loom                  | Screen Recording | 50-100 MB      | Video encoding              |
 
-**Conclusion:** Smart Tab Manager uses **60-90% less memory** than typical extensions.
+**Conclusion:** Auto Tab Organizer uses **60-90% less memory** than typical extensions.
 
 ---
 
@@ -387,7 +387,7 @@ Auto-terminates: 30 seconds inactivity
 Wake on events: Only uses memory when needed
 ```
 
-**Smart Tab Manager's Service Worker:**
+**Auto Tab Organizer's Service Worker:**
 
 ```javascript
 // Events that wake service worker:
@@ -466,7 +466,7 @@ if (existingGroupNames.has(groupName)) {
 
 ### Net Effect on Chrome Memory
 
-**Before Smart Tab Manager:**
+**Before Auto Tab Organizer:**
 
 ```
 100 tabs open, unorganized:
@@ -475,7 +475,7 @@ if (existingGroupNames.has(groupName)) {
 - Workflow efficiency: Low
 ```
 
-**After Smart Tab Manager:**
+**After Auto Tab Organizer:**
 
 ```
 50 tabs in groups, 50 closed (searchable):
@@ -500,7 +500,7 @@ if (existingGroupNames.has(groupName)) {
 | **Can I reduce usage?**           | Yes, see "Memory Efficiency Tips"   |
 | **Compared to other extensions?** | 60-90% less memory                  |
 
-**Final Answer:** Smart Tab Manager uses **negligible memory** (2-10 MB) and actually **improves overall Chrome performance** by helping you keep fewer tabs open through better organization.
+**Final Answer:** Auto Tab Organizer uses **negligible memory** (2-10 MB) and actually **improves overall Chrome performance** by helping you keep fewer tabs open through better organization.
 
 ---
 

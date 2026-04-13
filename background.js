@@ -861,7 +861,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // Initialize: save existing tabs
 chrome.runtime.onInstalled.addListener(async () => {
-    console.log("Smart Tab Manager installed");
+    console.log("Auto Tab Organizer installed");
 
     // Save all current tabs
     const tabs = await chrome.tabs.query({});
